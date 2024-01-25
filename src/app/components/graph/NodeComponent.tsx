@@ -26,15 +26,15 @@ export default function NodeComponent(props: NodeProps) {
       <rect
         x="0"
         y="0"
-        rx="3"
-        ry="3"
+        rx="7"
+        ry="7"
         width="24"
         height="24"
+        className="stroke-current text-blue-500"
         style={{
           fill: "transparent",
-          stroke: "rgb(69, 160, 178)",
           strokeWidth: 1,
-          opacity: 0.5,
+          opacity: 0.2,
         }}
       />
       {props.isStartNode ? (

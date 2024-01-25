@@ -5,6 +5,8 @@ export default class Graph {
 
   constructor(rows: number, columns: number) {
     this.initializeGrid(rows, columns);
+    this.setStartNode(10, 15);
+    this.setEndNode(10, 30);
   }
 
   addNode(node: Node): void {
@@ -14,6 +16,44 @@ export default class Graph {
 
   addEdge(source: Node, destination: Node) {
     source.addNeighbor(destination);
+  }
+
+  setStartNode(row: number, column: number) {
+    this.nodes[row][column].start = true;
+  }
+
+  setEndNode(row: number, column: number) {
+    this.nodes[row][column].end = true;
+  }
+
+  setWallNode(row: number, column: number) {
+    this.nodes[row][column].wall = true;
+  }
+
+  setVisitedNode(row: number, column: number) {
+    this.nodes[row][column].visited = true;
+  }
+
+  getStartNode(): Node {
+    for (const row of this.nodes) {
+      for (const node of row) {
+        if (node.start) {
+          return node;
+        }
+      }
+    }
+    return this.nodes[10][15];
+  }
+
+  getEndNode(): Node {
+    for (const row of this.nodes) {
+      for (const node of row) {
+        if (node.end) {
+          return node;
+        }
+      }
+    }
+    return this.nodes[10][35];
   }
 
   initializeGrid(rows: number, columns: number) {

@@ -1,8 +1,11 @@
+import Graph from "@/classes/graph";
 import Node from "../classes/node";
 
-export default function bfs(startNode: Node, endNode: Node): Set<Node> {
+export default function bfs(graph: Graph): Set<Node> {
   const visited: Set<Node> = new Set();
   const queue: Node[] = [];
+  const startNode = graph.getStartNode();
+  const endNode = graph.getEndNode();
 
   visited.add(startNode);
   queue.push(startNode);

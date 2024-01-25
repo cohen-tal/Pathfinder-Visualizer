@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import NavBar from "./components/navbar/GraphControls";
 import "./globals.css";
-import { useContext } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,9 +17,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} overflow-hidden bg-slate-100 dark:bg-cyan-900`}
+        className={`${inter.className} overflow-hidden w-full h-[100dvh] text-slate-700 dark:text-slate-200 dark:bg-slate-700`}
       >
-        {/* <NavBar /> */}
         {children}
       </body>
     </html>
