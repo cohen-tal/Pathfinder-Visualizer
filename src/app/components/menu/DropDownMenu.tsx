@@ -36,7 +36,7 @@ export default function DropDownMenu({
       />
       {open && (
         <motion.div
-          className="absolute top-10 mt-2 min-w-max flex flex-col p-[5px] z-50 bg-white/70 dark:bg-slate-700/70 border-slate-900/10 dark:border-slate-300/10 rounded border-[1px] shadow-lg"
+          className="absolute top-10 mt-2 min-w-max flex flex-col p-[px] z-50 bg-white/70 dark:bg-slate-700/70 border-slate-900/10 dark:border-slate-300/10 rounded border-[1px] shadow-lg"
           initial="closed"
           animate={"open"}
           variants={flex}

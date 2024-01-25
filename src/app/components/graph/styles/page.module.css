@@ -1,4 +1,4 @@
-.nodeVisited {
+.visited {
   animation-name: visitedAnimation;
   animation-duration: 1s;
   animation-timing-function: ease-out;
@@ -7,6 +7,40 @@
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
   animation-play-state: running;
+}
+
+.shortestPath {
+  animation-name: shortestPathAnimation;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  animation-delay: 0.2s;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+@keyframes shortestPathAnimation {
+  0% {
+    transform: scale(0.3);
+    background-color: rgb(215, 253, 0.75);
+    border-radius: 100%;
+  }
+
+  50% {
+    background-color: rgba(45, 252, 4, 0.75);
+  }
+
+  75% {
+    transform: scale(1.2);
+    background-color: rgba(4, 252, 190, 0.75);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: rgba(252, 4, 198, 0.6);
+    border-radius: 4px;
+  }
 }
 
 @keyframes visitedAnimation {
@@ -28,5 +62,6 @@
   100% {
     transform: scale(1);
     background-color: rgba(0, 190, 218, 0.75);
+    border-radius: 4px;
   }
 }

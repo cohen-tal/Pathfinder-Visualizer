@@ -8,13 +8,9 @@ export default function AlgoDropDownMenu({
   onMenuItemClicked,
 }: DropDownMenuProps & { onMenuItemClicked: (algo: string) => void }) {
   return (
-    // <ClickAwayListener onClickAway={() => onMenuItemClicked("Visualize!")}>
-    //   <div>
     <DropDownMenu menuName="Algorithms">
       <MenuItem onClick={onMenuItemClicked}>Breadth-First Search</MenuItem>
       <MenuItem onClick={onMenuItemClicked}>Depth-First Search</MenuItem>
     </DropDownMenu>
-    //   </div>
-    // </ClickAwayListener>
   );
 }

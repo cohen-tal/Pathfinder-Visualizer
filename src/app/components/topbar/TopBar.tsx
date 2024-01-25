@@ -5,8 +5,6 @@ import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import AlgoDropDownMenu from "../dropdown-menu/AlgoDropDownMenu";
 import MazeDropDownMenu from "../dropdown-menu/MazeDropDownMenu";
 import DarkModeButton from "../buttons/DarkModeButton";
-import { ClickAwayListener } from "@mui/material";
-import ThemeToggleButton from "../buttons/ThemeToggleButton";
 
 export interface TopBarProps {
   alogrithm: (algoToUse: string) => void;
@@ -17,7 +15,6 @@ export default function TopBar({ alogrithm }: TopBarProps) {
 
   const handleOnAlgorithmClicked = (algo: string) => {
     setAlgorithmToUse(algo);
-    alogrithm(algo);
   };
 
   const renderVisualizeButton = (isChosen: boolean) => {
@@ -29,6 +26,9 @@ export default function TopBar({ alogrithm }: TopBarProps) {
           animate={{ y: 0, opacity: 1 }}
           transition={{ type: "spring", stiffness: 100, damping: 10 }}
           whileTap={{ scale: 0.9 }}
+          onClick={() => {
+            alogrithm(algorithmToUse);
+          }}
         >
           {algorithmToUse}
           <PlayArrowRoundedIcon />
@@ -37,8 +37,8 @@ export default function TopBar({ alogrithm }: TopBarProps) {
     } else {
       return (
         <div className="min-w-[196px] flex justify-center items-center">
-          <button className="font-semibold hover:text-sky-600">
-            {algorithmToUse}
+          <button className="font-semibold" disabled>
+            Visualize!
           </button>
         </div>
       );

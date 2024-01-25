@@ -6,6 +6,7 @@ export default class Node {
   end: boolean;
   wall: boolean;
   neighbors: Map<Node, number>;
+  parent: Node | null = null;
 
   constructor(
     pos: [number, number],

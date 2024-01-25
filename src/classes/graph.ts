@@ -91,25 +91,25 @@ export default class Graph {
           this.addEdge(node, rightNeighbor);
         }
 
-        if (row < rows - 1 && column < columns - 1) {
-          const bottomRightNeighbor = this.nodes[row + 1][column + 1];
-          this.addEdge(node, bottomRightNeighbor);
-        }
+        // if (row < rows - 1 && column < columns - 1) {
+        //   const bottomRightNeighbor = this.nodes[row + 1][column + 1];
+        //   this.addEdge(node, bottomRightNeighbor);
+        // }
 
-        if (row < rows - 1 && column > 0) {
-          const bottomLeftNeighbor = this.nodes[row + 1][column - 1];
-          this.addEdge(node, bottomLeftNeighbor);
-        }
+        // if (row < rows - 1 && column > 0) {
+        //   const bottomLeftNeighbor = this.nodes[row + 1][column - 1];
+        //   this.addEdge(node, bottomLeftNeighbor);
+        // }
 
-        if (row > 0 && column < columns - 1) {
-          const topRightNeighbor = this.nodes[row - 1][column + 1];
-          this.addEdge(node, topRightNeighbor);
-        }
+        // if (row > 0 && column < columns - 1) {
+        //   const topRightNeighbor = this.nodes[row - 1][column + 1];
+        //   this.addEdge(node, topRightNeighbor);
+        // }
 
-        if (row > 0 && column > 0) {
-          const topLeftNeighbor = this.nodes[row - 1][column - 1];
-          this.addEdge(node, topLeftNeighbor);
-        }
+        // if (row > 0 && column > 0) {
+        //   const topLeftNeighbor = this.nodes[row - 1][column - 1];
+        //   this.addEdge(node, topLeftNeighbor);
+        // }
       }
     }
   }
