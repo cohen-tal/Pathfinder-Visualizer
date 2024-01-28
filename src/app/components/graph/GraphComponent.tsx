@@ -4,20 +4,30 @@ import NodeComponent from "./NodeComponent";
 import Graph from "@/classes/graph";
 import Node from "@/classes/node";
 import styles from "./styles/page.module.css";
+import { animateShortestPath, animateVisited } from "@/utils/animationUtils";
 
 export interface GraphProps {
   graph: Graph;
+  rows?: number;
+  cols?: number;
   visitedNodes?: Set<Node>;
   shortestPath?: Node[];
 }
 
 export default function GraphComponent({
   graph,
+  rows = 15,
+  cols = 35,
   visitedNodes,
   shortestPath,
 }: GraphProps) {
   const graphNodes: Node[][] = graph.nodes;
   const [nodes, setNodes] = useState<JSX.Element[]>([]);
+
+  const changeWall = (id: [number, number]) => {
+    const [row, col] = id;
+    graph.setWallNode(row, col);
+  };
 
   //todo: change useEffect to useMemo to prevent re-rendering
   useEffect(() => {
@@ -34,6 +44,7 @@ export default function GraphComponent({
             isStartNode={node.start}
             isEndNode={node.end}
             isWall={node.wall}
+            changeWall={changeWall}
           />
         );
       }
@@ -43,40 +54,26 @@ export default function GraphComponent({
 
   useEffect(() => {
     if (visitedNodes) {
-      const visitedNodeElements = Array.from(visitedNodes).map((node) =>
-        document.getElementById(`${node.pos[0]}-${node.pos[1]}`)
-      );
-
-      const visitedNodeAnimations = visitedNodeElements.map(
-        (nodeElement, index) =>
-          new Promise<void>((resolve) => {
-            if (nodeElement) {
-              setTimeout(() => {
-                nodeElement.classList.add(styles.visited);
-                resolve();
-              }, 10 * index);
-            }
-          })
+      const visitedNodeAnimations: Promise<void>[] = animateVisited(
+        visitedNodes,
+        styles.visited
       );
 
       Promise.all(visitedNodeAnimations).then(() => {
         setTimeout(() => {
           if (shortestPath) {
-            shortestPath.forEach((node, index) => {
-              const nodeElement = document.getElementById(
-                `${node.pos[0]}-${node.pos[1]}`
-              );
-              if (nodeElement) {
-                setTimeout(() => {
-                  nodeElement.classList.add(styles.shortestPath);
-                }, 50 * index);
-              }
-            });
+            animateShortestPath(shortestPath, styles.shortestPath);
           }
-        }, 1000); // 1000 milliseconds (1 second) delay
+        }, 1000);
       });
     }
   }, [visitedNodes, shortestPath]);
 
-  return <div className="grid grid-cols-[repeat(45,1fr)] gap-0]">{nodes}</div>;
+  return (
+    <div
+      className={`grid grid-cols-[repeat(${cols},1fr)] grid-rows-[repeat(${rows},1fr)] gap-0 hover:cursor-pointer`}
+    >
+      {nodes}
+    </div>
+  );
 }

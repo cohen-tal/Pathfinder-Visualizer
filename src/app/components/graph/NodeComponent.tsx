@@ -1,7 +1,9 @@
 "use client";
+import { useState } from "react";
 import styles from "./styles/page.module.css";
 import PlaceIcon from "@mui/icons-material/Place";
 import TourIcon from "@mui/icons-material/Tour";
+import { debounce } from "lodash";
 
 export interface NodeProps {
   id: [number, number];
@@ -10,17 +12,36 @@ export interface NodeProps {
   isStartNode: boolean;
   isEndNode: boolean;
   isWall: boolean;
+  changeWall: (id: [number, number]) => void;
 }
 
-export default function NodeComponent({ isVisited, ...props }: NodeProps) {
-  // const [visited, setVisited] = useState<boolean>(isVisited);
-
+export default function NodeComponent({
+  id,
+  weight,
+  isEndNode,
+  isStartNode,
+  isVisited,
+  isWall,
+  changeWall,
+}: NodeProps) {
+  const [wall, setWall] = useState<boolean>(isWall);
   return (
     <svg
-      className={isVisited ? styles.visited : ""}
-      id={`${props.id[0]}-${props.id[1]}`}
+      className={isVisited ? styles.visited : wall ? styles.wall : ""}
+      id={`${id[0]}-${id[1]}`}
       width="24"
       height="24"
+      onClick={() => {
+        setWall(!wall);
+        changeWall(id);
+      }}
+      onMouseEnter={debounce((e) => {
+        e.preventDefault();
+        if (e.buttons === 1) {
+          setWall(!wall);
+          changeWall(id);
+        }
+      }, 100)}
     >
       <rect
         x="0"
@@ -36,24 +57,8 @@ export default function NodeComponent({ isVisited, ...props }: NodeProps) {
           opacity: 0.2,
         }}
       />
-      {props.isStartNode ? (
-        <PlaceIcon
-          style={{
-            color: "green",
-          }}
-        />
-      ) : (
-        ""
-      )}
-      {props.isEndNode ? (
-        <TourIcon
-          style={{
-            color: "red",
-          }}
-        />
-      ) : (
-        ""
-      )}
+      {isStartNode ? <PlaceIcon /> : ""}
+      {isEndNode ? <TourIcon /> : ""}
     </svg>
   );
 }

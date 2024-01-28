@@ -1,9 +1,9 @@
 import Graph from "@/classes/graph";
-import Node from "../classes/node";
+import Node from "../../classes/node";
+import shortestPath from "@/utils/calc-short-path";
 
 export default function bfs(graph: Graph): [Set<Node>, Node[]] {
   const visited: Set<Node> = new Set();
-  const shortestPath: Node[] = [];
   const queue: Node[] = [];
   const startNode = graph.getStartNode();
   const endNode = graph.getEndNode();
@@ -18,7 +18,7 @@ export default function bfs(graph: Graph): [Set<Node>, Node[]] {
     }
 
     for (const neighbor of node.neighbors.keys()) {
-      if (!visited.has(neighbor)) {
+      if (!visited.has(neighbor) && !neighbor.wall) {
         visited.add(neighbor);
         neighbor.visited = true;
         neighbor.parent = node;
@@ -27,12 +27,5 @@ export default function bfs(graph: Graph): [Set<Node>, Node[]] {
     }
   }
 
-  let currentNode = endNode;
-  while (currentNode !== startNode) {
-    shortestPath.push(currentNode);
-    currentNode = currentNode.parent!;
-  }
-  shortestPath.push(startNode);
-
-  return [visited, shortestPath];
+  return [visited, shortestPath(startNode, endNode)];
 }
