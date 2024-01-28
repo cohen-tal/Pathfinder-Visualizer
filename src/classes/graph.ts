@@ -5,8 +5,8 @@ export default class Graph {
 
   constructor(rows: number, columns: number) {
     this.initializeGrid(rows, columns);
-    this.setStartNode(10, 15);
-    this.setEndNode(10, 30);
+    this.setStartNode(7, 10);
+    this.setEndNode(7, 24);
   }
 
   addNode(node: Node): void {
@@ -27,7 +27,7 @@ export default class Graph {
   }
 
   setWallNode(row: number, column: number) {
-    this.nodes[row][column].wall = true;
+    this.nodes[row][column].toggleWall();
   }
 
   setVisitedNode(row: number, column: number) {
@@ -53,18 +53,17 @@ export default class Graph {
         }
       }
     }
-    return this.nodes[10][35];
+    return this.nodes[10][34];
   }
 
   initializeGrid(rows: number, columns: number) {
     for (let i = 0; i < rows; i++) {
       this.nodes.push([]);
       for (let j = 0; j < columns; j++) {
-        const node = new Node([i, j], false, false, false, false, 0);
+        const node = new Node([i, j], false, false, false, false, 1, null);
         this.addNode(node);
       }
     }
-    console.log(this.nodes);
 
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < columns; j++) {
@@ -90,26 +89,16 @@ export default class Graph {
           const rightNeighbor = this.nodes[row][column + 1];
           this.addEdge(node, rightNeighbor);
         }
+      }
+    }
+  }
 
-        // if (row < rows - 1 && column < columns - 1) {
-        //   const bottomRightNeighbor = this.nodes[row + 1][column + 1];
-        //   this.addEdge(node, bottomRightNeighbor);
-        // }
-
-        // if (row < rows - 1 && column > 0) {
-        //   const bottomLeftNeighbor = this.nodes[row + 1][column - 1];
-        //   this.addEdge(node, bottomLeftNeighbor);
-        // }
-
-        // if (row > 0 && column < columns - 1) {
-        //   const topRightNeighbor = this.nodes[row - 1][column + 1];
-        //   this.addEdge(node, topRightNeighbor);
-        // }
-
-        // if (row > 0 && column > 0) {
-        //   const topLeftNeighbor = this.nodes[row - 1][column - 1];
-        //   this.addEdge(node, topLeftNeighbor);
-        // }
+  reset() {
+    for (const row of this.nodes) {
+      for (const node of row) {
+        node.visited = false;
+        node.parent = null;
+        node.distance = 0;
       }
     }
   }
