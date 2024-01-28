@@ -2,20 +2,45 @@
 import { useState, useMemo } from "react";
 import GraphControls from "../topbar/TopBar";
 import GraphComponent from "../graph/GraphComponent";
-import bfs from "@/utils/bfs";
+import bfs from "@/utils/algorithms/bfs";
+import dijkstra from "@/utils/algorithms/dijkstra";
 import Graph from "@/classes/graph";
 import Node from "@/classes/node";
+import styles from "@/app/components/graph/styles/page.module.css";
+import { clearAnimations } from "@/utils/animationUtils";
+import Legend from "../legend/Legend";
 
 export default function GraphContainer() {
-  const graph: Graph = useMemo(() => new Graph(20, 45), []);
+  const screenWidth: number = window.innerWidth;
+  const rows = screenWidth < 1200 ? 15 : screenWidth < 1500 ? 21 : 20;
+  const cols = screenWidth < 1200 ? 45 : screenWidth < 1500 ? 51 : 62;
+  const graph: Graph = useMemo(() => new Graph(rows, cols), [rows, cols]);
+
   const [visitedNodes, setVisitedNodes] = useState<Set<Node>>();
   const [shortestPath, setShortestPath] = useState<Node[]>();
 
+  const resetGraph = () => {
+    graph.reset();
+    clearAnimations(styles.visited, styles.shortestPath);
+  };
+
   const calculatePath = (algorithmToUse: string) => {
     console.log(algorithmToUse);
+    //todo: change so that the button will return the fucntion of the algorithm to use
     switch (algorithmToUse) {
       case "Breadth-First Search": {
+        resetGraph();
         const [visited, shortest]: [Set<Node>, Node[]] = bfs(graph);
+        setVisitedNodes(visited);
+        setShortestPath(shortest);
+        break;
+      }
+      case "Depth-First Search": {
+        break;
+      }
+      case "Dijkstra's Algorithm": {
+        resetGraph();
+        const [visited, shortest]: [Set<Node>, Node[]] = dijkstra(graph);
         setVisitedNodes(visited);
         setShortestPath(shortest);
         break;
@@ -30,14 +55,13 @@ export default function GraphContainer() {
     <>
       <div className="flex flex-col items-center justify-center w-full gap-8">
         <GraphControls alogrithm={calculatePath} />
-        <div className="flex flex-row items-start justify-center">
-          <div className="border-slate-900/10 dark:border-slate-300/10 rounded-[7px] border-[1px] shadow-lg">
-            <GraphComponent
-              graph={graph}
-              visitedNodes={visitedNodes}
-              shortestPath={shortestPath}
-            />
-          </div>
+        <Legend />
+        <div className="border-slate-900/10 dark:border-slate-300/10 rounded-[7px] border-[1px] shadow-lg">
+          <GraphComponent
+            graph={graph}
+            visitedNodes={visitedNodes}
+            shortestPath={shortestPath}
+          />
         </div>
       </div>
     </>

@@ -1,7 +1,7 @@
 "use client";
+import { useState } from "react";
 import styles from "./styles/page.module.css";
-import PlaceIcon from "@mui/icons-material/Place";
-import TourIcon from "@mui/icons-material/Tour";
+import { debounce } from "lodash";
 
 export interface NodeProps {
   id: [number, number];
@@ -10,17 +10,67 @@ export interface NodeProps {
   isStartNode: boolean;
   isEndNode: boolean;
   isWall: boolean;
+  changeWall: (id: [number, number]) => void;
+  changeWeight: (id: [number, number]) => void;
 }
 
-export default function NodeComponent({ isVisited, ...props }: NodeProps) {
-  // const [visited, setVisited] = useState<boolean>(isVisited);
-
+export default function NodeComponent({
+  id,
+  weight,
+  isEndNode,
+  isStartNode,
+  isVisited,
+  isWall,
+  changeWall,
+  changeWeight,
+}: NodeProps) {
+  const [wall, setWall] = useState<boolean>(isWall);
+  const [weightNode, setWeightNode] = useState<number>(weight);
   return (
     <svg
-      className={isVisited ? styles.visited : ""}
-      id={`${props.id[0]}-${props.id[1]}`}
+      className={
+        isVisited
+          ? styles.visited
+          : wall
+          ? styles.wall
+          : weightNode > 1
+          ? styles.weight
+          : ""
+      }
+      id={`${id[0]}-${id[1]}`}
       width="24"
       height="24"
+      onClick={() => {
+        setWall(!wall);
+        changeWall(id);
+      }}
+      onMouseEnter={debounce((e) => {
+        e.preventDefault();
+        if (e.buttons === 1) {
+          setWall(!wall);
+          changeWall(id);
+        } else if (e.buttons === 2) {
+          setWeightNode((weight) => {
+            if (weight === 1) {
+              return 2;
+            } else {
+              return 1;
+            }
+          });
+          changeWeight(id);
+        }
+      }, 100)}
+      onContextMenu={(e) => {
+        e.preventDefault();
+        setWeightNode((weight) => {
+          if (weight === 1) {
+            return 2;
+          } else {
+            return 1;
+          }
+        });
+        changeWeight(id);
+      }}
     >
       <rect
         x="0"
@@ -31,29 +81,20 @@ export default function NodeComponent({ isVisited, ...props }: NodeProps) {
         height="24"
         className="stroke-current text-blue-500 dark:text-white"
         style={{
-          fill: "transparent",
+          fill: isStartNode
+            ? "#049307"
+            : isEndNode
+            ? "#d509f0"
+            : weightNode > 1
+            ? "#f59e0b"
+            : "transparent",
           strokeWidth: 1,
           opacity: 0.2,
         }}
       />
-      {props.isStartNode ? (
-        <PlaceIcon
-          style={{
-            color: "green",
-          }}
-        />
-      ) : (
-        ""
-      )}
-      {props.isEndNode ? (
-        <TourIcon
-          style={{
-            color: "red",
-          }}
-        />
-      ) : (
-        ""
-      )}
+      {isStartNode && <image href="/start-here.svg" height={24} width={24} />}
+      {isEndNode && <image href="/marker-pin.svg" height={20} width={23} />}
+      {weightNode > 1 && <image href="/weight.svg" height={20} width={23} />}
     </svg>
   );
 }

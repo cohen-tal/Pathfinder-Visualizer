@@ -5,8 +5,10 @@ export default class Graph {
 
   constructor(rows: number, columns: number) {
     this.initializeGrid(rows, columns);
-    this.setStartNode(10, 15);
-    this.setEndNode(10, 30);
+    const centerRow = Math.floor(rows / 2);
+    const centerColumn = Math.floor(columns / 2);
+    this.setStartNode(centerRow, centerColumn - 10);
+    this.setEndNode(centerRow, centerColumn + 10);
   }
 
   addNode(node: Node): void {
@@ -19,19 +21,32 @@ export default class Graph {
   }
 
   setStartNode(row: number, column: number) {
-    this.nodes[row][column].start = true;
+    const node = this.nodes[row][column];
+    node.start = true;
   }
 
   setEndNode(row: number, column: number) {
-    this.nodes[row][column].end = true;
+    const node = this.nodes[row][column];
+    node.end = true;
   }
 
   setWallNode(row: number, column: number) {
-    this.nodes[row][column].wall = true;
+    const node = this.nodes[row][column];
+    node.toggleWall();
   }
 
   setVisitedNode(row: number, column: number) {
-    this.nodes[row][column].visited = true;
+    const node = this.nodes[row][column];
+    node.visited = true;
+  }
+
+  setWeightNode(row: number, column: number) {
+    const node = this.nodes[row][column];
+    if (node.weight === 1) {
+      node.weight = 2;
+    } else {
+      node.weight = 1;
+    }
   }
 
   getStartNode(): Node {
@@ -53,18 +68,17 @@ export default class Graph {
         }
       }
     }
-    return this.nodes[10][35];
+    return this.nodes[10][34];
   }
 
   initializeGrid(rows: number, columns: number) {
     for (let i = 0; i < rows; i++) {
       this.nodes.push([]);
       for (let j = 0; j < columns; j++) {
-        const node = new Node([i, j], false, false, false, false, 0);
+        const node = new Node([i, j], false, false, false, false, 1, null);
         this.addNode(node);
       }
     }
-    console.log(this.nodes);
 
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < columns; j++) {
@@ -90,26 +104,16 @@ export default class Graph {
           const rightNeighbor = this.nodes[row][column + 1];
           this.addEdge(node, rightNeighbor);
         }
+      }
+    }
+  }
 
-        // if (row < rows - 1 && column < columns - 1) {
-        //   const bottomRightNeighbor = this.nodes[row + 1][column + 1];
-        //   this.addEdge(node, bottomRightNeighbor);
-        // }
-
-        // if (row < rows - 1 && column > 0) {
-        //   const bottomLeftNeighbor = this.nodes[row + 1][column - 1];
-        //   this.addEdge(node, bottomLeftNeighbor);
-        // }
-
-        // if (row > 0 && column < columns - 1) {
-        //   const topRightNeighbor = this.nodes[row - 1][column + 1];
-        //   this.addEdge(node, topRightNeighbor);
-        // }
-
-        // if (row > 0 && column > 0) {
-        //   const topLeftNeighbor = this.nodes[row - 1][column - 1];
-        //   this.addEdge(node, topLeftNeighbor);
-        // }
+  reset() {
+    for (const row of this.nodes) {
+      for (const node of row) {
+        node.visited = false;
+        node.parent = null;
+        node.distance = 0;
       }
     }
   }
