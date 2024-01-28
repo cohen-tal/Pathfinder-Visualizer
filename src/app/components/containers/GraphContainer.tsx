@@ -16,7 +16,7 @@ export default function GraphContainer() {
 
   const resetGraph = () => {
     graph.reset();
-    clearAnimations(styles.visited);
+    clearAnimations(styles.visited, styles.shortestPath);
   };
 
   const calculatePath = (algorithmToUse: string) => {
