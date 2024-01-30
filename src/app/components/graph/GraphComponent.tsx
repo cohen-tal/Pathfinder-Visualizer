@@ -29,6 +29,11 @@ export default function GraphComponent({
     graph.setWallNode(row, col);
   };
 
+  const changeWeight = (id: [number, number]) => {
+    const [row, col] = id;
+    graph.setWeightNode(row, col);
+  };
+
   //todo: change useEffect to useMemo to prevent re-rendering
   useEffect(() => {
     const nodeComponents: JSX.Element[] = [];
@@ -45,6 +50,7 @@ export default function GraphComponent({
             isEndNode={node.end}
             isWall={node.wall}
             changeWall={changeWall}
+            changeWeight={changeWeight}
           />
         );
       }
@@ -71,7 +77,8 @@ export default function GraphComponent({
 
   return (
     <div
-      className={`grid grid-cols-[repeat(${cols},1fr)] grid-rows-[repeat(${rows},1fr)] gap-0 hover:cursor-pointer`}
+      className={`${styles.grid} hover:cursor-pointer`}
+      // className={`grid grid-cols-[repeat(${cols},1fr)] grid-rows-[repeat(${rows},1fr)] gap-0 hover:cursor-pointer`}
     >
       {nodes}
     </div>

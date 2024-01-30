@@ -17,15 +17,14 @@ export default function bfs(graph: Graph): [Set<Node>, Node[]] {
       break;
     }
 
-    for (const neighbor of node.neighbors.keys()) {
+    node.neighbors.forEach((neighbor) => {
       if (!visited.has(neighbor) && !neighbor.wall) {
         visited.add(neighbor);
         neighbor.visited = true;
         neighbor.parent = node;
         queue.push(neighbor);
       }
-    }
+    });
   }
-
   return [visited, shortestPath(startNode, endNode)];
 }

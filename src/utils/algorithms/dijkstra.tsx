@@ -13,7 +13,7 @@ export default function dijkstra(graph: Graph): [Set<Node>, Node[]] {
 
   // Initialize all nodes to have a distance of infinity and add them to the priority queue
   unvisitedNodes.forEach((node) => {
-    if (node !== startNode && !node.wall) {
+    if (node !== startNode) {
       node.distance = Number.POSITIVE_INFINITY;
       queue.enqueue(node, node.distance);
     } else {
@@ -31,14 +31,42 @@ export default function dijkstra(graph: Graph): [Set<Node>, Node[]] {
       break;
     }
 
-    currentNode.neighbors.forEach((weight, neighbor) => {
-      const distance: number = currentNode.distance + weight;
-      if (distance < neighbor.distance) {
+    currentNode.neighbors.forEach((neighbor) => {
+      const distance: number = currentNode.distance + neighbor.weight;
+      // if (
+      //   (neighbor.pos[0] === 9 || neighbor.pos[0] === 10) &&
+      //   neighbor.pos[1] === 23
+      // ) {
+      //   console.log(neighbor.pos[0], neighbor.pos[1], neighbor.distance);
+
+      //   console.log(neighbor.pos[0], neighbor.pos[1], distance);
+      // }
+      if (distance < neighbor.distance && !neighbor.wall) {
+        if (
+          (neighbor.pos[0] === 9 || neighbor.pos[0] === 10) &&
+          neighbor.pos[1] === 23
+        ) {
+          console.log(
+            `current: [${currentNode.pos[0]}, ${currentNode.pos[1]}], ${currentNode.distance}, parent: [${currentNode.parent?.pos[0]}, ${currentNode.parent?.pos[1]}]`
+          );
+          console.log(
+            `new: [${neighbor.pos[0]}, ${neighbor.pos[1]}], ${distance}, parent: [${currentNode.pos[0]}, ${currentNode.pos[1]}]`
+          );
+        }
         neighbor.distance = distance;
         neighbor.parent = currentNode;
         queue.changePriority(neighbor, neighbor.distance);
       }
     });
+
+    // currentNode.neighbors.forEach((weight, neighbor) => {
+    //   const distance: number = currentNode.distance + weight;
+    //   if (distance < neighbor.distance && !neighbor.wall) {
+    //     neighbor.distance = distance;
+    //     neighbor.parent = currentNode;
+    //     queue.changePriority(neighbor, neighbor.distance);
+    //   }
+    // });
 
     visitedNodes.add(currentNode);
     currentNode.visited = true;

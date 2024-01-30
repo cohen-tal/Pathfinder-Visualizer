@@ -6,6 +6,9 @@ export default function shortestPath(startNode: Node, endNode: Node): Node[] {
 
   if (endNode.parent) {
     while (currentNode !== startNode) {
+      console.log(currentNode);
+      console.log(currentNode.parent);
+
       shortestPath.push(currentNode);
       currentNode = currentNode.parent!;
     }

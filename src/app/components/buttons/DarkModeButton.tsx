@@ -23,30 +23,34 @@ export default function DarkModeButton() {
     }
   }, [darkMode]);
 
+  console.log("darkmode:" + darkMode);
+
   return (
     <div className="absolute flex flex-row right-40 pb-0.5">
       <div className="w-[1px] h-15 bg-slate-900/10 dark:bg-slate-300/10 mr-5" />
       <div className="flex flex-row items-center justify-center border z-50 bg-white/70 dark:bg-slate-700/70 border-slate-900/10 dark:border-slate-300/10 rounded-[4px]">
         <button
           className="hover:cursor-pointer hover:bg-sky-600/50 dark:hover:text-white dark:hover:bg-sky-600/70 rounded-[2px] border-slate-900/10 dark:border-slate-300/10 h-full w-full p-2.5"
+          style={
+            darkMode
+              ? {}
+              : { color: "#0ea5e9", backgroundColor: "rgba(0,0,0,0.1)" }
+          }
           onClick={() => setDarkMode(false)}
         >
-          {darkMode ? (
-            <LightModeOutlinedIcon />
-          ) : (
-            <LightModeOutlinedIcon className="fill-sky-500" />
-          )}
+          <LightModeOutlinedIcon />
         </button>
         <div className="w-[4px] h-11 bg-slate-900/10 dark:bg-slate-300/10" />
         <button
           className="hover:cursor-pointer hover:bg-sky-600/50 dark:hover:text-white dark:hover:bg-sky-600/70 rounded-[2px] w-full p-2.5"
+          style={
+            darkMode
+              ? { color: "#0ea5e9", backgroundColor: "rgba(0,0,0,0.1)" }
+              : {}
+          }
           onClick={() => setDarkMode(true)}
         >
-          {darkMode ? (
-            <ModeNightOutlinedIcon className="fill-sky-600" />
-          ) : (
-            <ModeNightOutlinedIcon />
-          )}
+          <ModeNightOutlinedIcon />
         </button>
       </div>
     </div>

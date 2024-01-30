@@ -24,11 +24,65 @@
   animation-name: wallAnimation;
   animation-duration: 0.3s;
   animation-timing-function: ease-out;
-  /* animation-delay: 0.2s; */
   animation-direction: alternate;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
   animation-play-state: running;
+}
+
+.weight {
+  animation-name: weightAnimation;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0.1s;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+
+  &.visited {
+    animation-name: visitedAnimation;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+    animation-delay: 0.2s;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+  }
+  &.shortestPath {
+    animation-name: shortestPathAnimation;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+    animation-delay: 0.2s;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(62, 1fr);
+  grid-template-rows: repeat(20, 1fr);
+  gap: 0px;
+}
+
+@media (max-width: 1500px) {
+  .grid {
+    grid-template-columns: repeat(51, 1fr);
+    grid-template-rows: repeat(21, 1fr);
+    gap: 0px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(45, 1fr);
+    grid-template-rows: repeat(15, 1fr);
+    gap: 0px;
+  }
 }
 
 @keyframes shortestPathAnimation {
@@ -96,6 +150,29 @@
   100% {
     transform: scale(1);
     background-color: rgba(0, 0, 0, 0.75);
+    border-radius: 4px;
+  }
+}
+
+@keyframes weightAnimation {
+  0% {
+    transform: scale(0.8);
+    background-color: rgb(255, 170, 0);
+    border-radius: 4px;
+  }
+
+  50% {
+    scale: 1.1;
+  }
+
+  75% {
+    transform: scale(1.1);
+    background-color: #f8e4c9;
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: #f8e4c9;
     border-radius: 4px;
   }
 }
