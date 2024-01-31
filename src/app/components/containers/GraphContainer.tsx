@@ -10,6 +10,7 @@ import styles from "@/app/components/graph/styles/page.module.css";
 import { clearAnimations } from "@/utils/animationUtils";
 import Legend from "../legend/Legend";
 import AStar from "@/utils/algorithms/aStar";
+import dfs from "@/utils/algorithms/dfs";
 
 export default function GraphContainer() {
   const screenWidth: number = window.innerWidth;
@@ -37,6 +38,10 @@ export default function GraphContainer() {
         break;
       }
       case "Depth-First Search": {
+        resetGraph();
+        const [visited, shortest]: [Set<Node>, Node[]] = dfs(graph);
+        setVisitedNodes(visited);
+        setShortestPath(shortest);
         break;
       }
       case "Dijkstra's Algorithm": {
