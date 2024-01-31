@@ -9,10 +9,11 @@ import Node from "@/classes/node";
 import styles from "@/app/components/graph/styles/page.module.css";
 import { clearAnimations } from "@/utils/animationUtils";
 import Legend from "../legend/Legend";
+import AStar from "@/utils/algorithms/aStar";
 
 export default function GraphContainer() {
   const screenWidth: number = window.innerWidth;
-  const rows = screenWidth < 1200 ? 15 : screenWidth < 1500 ? 21 : 20;
+  const rows = screenWidth < 1200 ? 15 : screenWidth < 1500 ? 21 : 23;
   const cols = screenWidth < 1200 ? 45 : screenWidth < 1500 ? 51 : 62;
   const graph: Graph = useMemo(() => new Graph(rows, cols), [rows, cols]);
 
@@ -41,6 +42,13 @@ export default function GraphContainer() {
       case "Dijkstra's Algorithm": {
         resetGraph();
         const [visited, shortest]: [Set<Node>, Node[]] = dijkstra(graph);
+        setVisitedNodes(visited);
+        setShortestPath(shortest);
+        break;
+      }
+      case "A* (A-Star) Algorithm": {
+        resetGraph();
+        const [visited, shortest]: [Set<Node>, Node[]] = AStar(graph);
         setVisitedNodes(visited);
         setShortestPath(shortest);
         break;

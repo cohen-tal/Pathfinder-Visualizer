@@ -16,8 +16,8 @@ export interface GraphProps {
 
 export default function GraphComponent({
   graph,
-  rows = 15,
-  cols = 35,
+  rows = 21,
+  cols = 51,
   visitedNodes,
   shortestPath,
 }: GraphProps) {
@@ -78,7 +78,6 @@ export default function GraphComponent({
   return (
     <div
       className={`${styles.grid} hover:cursor-pointer`}
-      // className={`grid grid-cols-[repeat(${cols},1fr)] grid-rows-[repeat(${rows},1fr)] gap-0 hover:cursor-pointer`}
     >
       {nodes}
     </div>
