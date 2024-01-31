@@ -12,6 +12,7 @@ export default function AlgoDropDownMenu({
       <MenuItem onClick={onMenuItemClicked}>Breadth-First Search</MenuItem>
       <MenuItem onClick={onMenuItemClicked}>Depth-First Search</MenuItem>
       <MenuItem onClick={onMenuItemClicked}>{"Dijkstra's Algorithm"}</MenuItem>
+      <MenuItem onClick={onMenuItemClicked}>A* (A-Star) Algorithm</MenuItem>
     </DropDownMenu>
   );
 }

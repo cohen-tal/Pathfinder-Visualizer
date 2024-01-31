@@ -12,6 +12,10 @@ export default class PriorityQueue {
     return this.values.shift();
   }
 
+  has(val: Node) {
+    return this.values.some((v) => v[1] === val);
+  }
+
   changePriority(val: Node, priority: number) {
     const index = this.values.findIndex((v) => v[1] === val);
     this.values[index][0] = priority;
