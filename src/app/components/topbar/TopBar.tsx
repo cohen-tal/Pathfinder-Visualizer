@@ -49,7 +49,7 @@ export default function TopBar({ alogrithm }: TopBarProps) {
 
   return (
     <div className="flex flex-row items-center justify-center gap-12 w-full h-14 border-slate-900/10 dark:border-slate-300/10 dark:bg-slate-700 top-0 self-center border-b">
-      <div className="absolute left-36 flex flex-row items-center" >
+      <div className="absolute left-20 flex flex-row items-center" >
       <Image src="/logo.png" width={50} height={50} alt="logo" />
       <h1 className="font-semibold text-2xl p-4">Graphical Graph Visualizer</h1>
       </div>

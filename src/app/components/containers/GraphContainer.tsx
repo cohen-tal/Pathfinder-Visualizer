@@ -11,6 +11,7 @@ import { clearAnimations } from "@/utils/animationUtils";
 import Legend from "../legend/Legend";
 import AStar from "@/utils/algorithms/aStar";
 import dfs from "@/utils/algorithms/dfs";
+import particleSwarmAlgorithm from "@/utils/algorithms/particleSwarm";
 
 export default function GraphContainer() {
   const screenWidth: number = window.innerWidth;
@@ -27,33 +28,35 @@ export default function GraphContainer() {
   };
 
   const calculatePath = (algorithmToUse: string) => {
-    console.log(algorithmToUse);
+    resetGraph();
     //todo: change so that the button will return the fucntion of the algorithm to use
     switch (algorithmToUse) {
-      case "Breadth-First Search": {
-        resetGraph();
+      case "Breadth-First Search (BFS)": {
         const [visited, shortest]: [Set<Node>, Node[]] = bfs(graph);
         setVisitedNodes(visited);
         setShortestPath(shortest);
         break;
       }
-      case "Depth-First Search": {
-        resetGraph();
+      case "Depth-First Search (DFS)": {
         const [visited, shortest]: [Set<Node>, Node[]] = dfs(graph);
         setVisitedNodes(visited);
         setShortestPath(shortest);
         break;
       }
       case "Dijkstra's Algorithm": {
-        resetGraph();
         const [visited, shortest]: [Set<Node>, Node[]] = dijkstra(graph);
         setVisitedNodes(visited);
         setShortestPath(shortest);
         break;
       }
       case "A* (A-Star) Algorithm": {
-        resetGraph();
         const [visited, shortest]: [Set<Node>, Node[]] = AStar(graph);
+        setVisitedNodes(visited);
+        setShortestPath(shortest);
+        break;
+      }
+      case "Particle Swarm Algorithm": {
+        const[visited, shortest]: [Set<Node>, Node[]] = particleSwarmAlgorithm(graph);
         setVisitedNodes(visited);
         setShortestPath(shortest);
         break;

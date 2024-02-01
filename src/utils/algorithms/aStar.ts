@@ -22,10 +22,11 @@ export default function AStar(graph: Graph): [visited: Set<Node>, path: Node[]] 
         const current: Node = priorityQueue.dequeue()![1];
         
 
-        // if (current === endNode) {
-        //     const path = reconstructPath(cameFrom, current);
-        //     return [visited, path];
-        // }
+        if (current === endNode) {
+            const path = reconstructPath(cameFrom, current);
+            path.reverse();
+            return [visited, path];
+        }
 
         if(!current.wall) {
             visited.add(current);
@@ -46,7 +47,8 @@ export default function AStar(graph: Graph): [visited: Set<Node>, path: Node[]] 
         }
     }
 
-    const path = shortestPath(startNode, endNode);
+    const path = reconstructPath(cameFrom, endNode);
+    path.reverse();
 
     return [visited, path];
 }
