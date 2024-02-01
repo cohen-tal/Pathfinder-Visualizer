@@ -11,7 +11,6 @@ import { clearAnimations } from "@/utils/animationUtils";
 import Legend from "../legend/Legend";
 import AStar from "@/utils/algorithms/aStar";
 import dfs from "@/utils/algorithms/dfs";
-import particleSwarmAlgorithm from "@/utils/algorithms/particleSwarm";
 import bidirectionalAStar from "@/utils/algorithms/bidirectionalAStar";
 
 export default function GraphContainer() {
@@ -52,12 +51,6 @@ export default function GraphContainer() {
       }
       case "A* (A-Star) Algorithm": {
         const [visited, shortest]: [Set<Node>, Node[]] = AStar(graph);
-        setVisitedNodes(visited);
-        setShortestPath(shortest);
-        break;
-      }
-      case "Particle Swarm Algorithm": {
-        const[visited, shortest]: [Set<Node>, Node[]] = particleSwarmAlgorithm(graph);
         setVisitedNodes(visited);
         setShortestPath(shortest);
         break;
