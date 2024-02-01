@@ -1,3 +1,10 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(62, 1fr);
+  grid-template-rows: repeat(23, 1fr);
+  gap: 0px;
+}
+
 .visited {
   animation-name: visitedAnimation;
   animation-duration: 1s;
@@ -60,13 +67,6 @@
     animation-fill-mode: forwards;
     animation-play-state: running;
   }
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(62, 1fr);
-  grid-template-rows: repeat(20, 1fr);
-  gap: 0px;
 }
 
 @media (max-width: 1500px) {
