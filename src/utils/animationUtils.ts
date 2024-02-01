@@ -14,7 +14,7 @@ export function animateVisited(
   styles: string
 ): Promise<void>[] {
   const visitedNodeElements: (HTMLElement | null)[] = Array.from(visited).map(
-    (node) => document.getElementById(`${node.pos[0]}-${node.pos[1]}`)
+    (node) => document.getElementById(`${node.position[0]}-${node.position[1]}`)
   );
 
   const visitedNodeAnimations: Promise<void>[] = visitedNodeElements.map(
@@ -34,7 +34,7 @@ export function animateVisited(
 
 export function animateShortestPath(path: Node[], styles: string) {
   const pathElements: (HTMLElement | null)[] = Array.from(path).map((node) =>
-    document.getElementById(`${node.pos[0]}-${node.pos[1]}`)
+    document.getElementById(`${node.position[0]}-${node.position[1]}`)
   );
 
   pathElements.forEach((nodeElement, index) => {

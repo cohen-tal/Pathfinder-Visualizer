@@ -1,7 +1,6 @@
 import Graph from "@/classes/graph";
 import Node from "@/classes/node";
 import PriorityQueue from "@/data-structures/PriorityQueue";
-import shortestPath from "../calc-short-path";
 
 export default function AStar(graph: Graph): [visited: Set<Node>, path: Node[]] {
     const visited = new Set<Node>();
@@ -71,8 +70,8 @@ function initScoreMaps(graph: Graph, gScore: Map<Node, number>, fScore: Map<Node
 }
 
 function distanceTo(node: Node, endNode: Node): number {
-    const [x1,x2] = node.pos;
-    const [y1,y2] = endNode.pos;
+    const [x1,x2] = node.position;
+    const [y1,y2] = endNode.position;
     const manhattanDistance = Math.abs(x1 - x2) + Math.abs(y1 - y2);
     return manhattanDistance;
 }
