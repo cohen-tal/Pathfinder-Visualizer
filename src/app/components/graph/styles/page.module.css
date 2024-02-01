@@ -77,10 +77,10 @@
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1350px) {
   .grid {
     grid-template-columns: repeat(45, 1fr);
-    grid-template-rows: repeat(15, 1fr);
+    grid-template-rows: repeat(16, 1fr);
     gap: 0px;
   }
 }

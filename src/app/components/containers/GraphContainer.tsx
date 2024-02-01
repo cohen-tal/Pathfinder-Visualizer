@@ -12,11 +12,12 @@ import Legend from "../legend/Legend";
 import AStar from "@/utils/algorithms/aStar";
 import dfs from "@/utils/algorithms/dfs";
 import particleSwarmAlgorithm from "@/utils/algorithms/particleSwarm";
+import bidirectionalAStar from "@/utils/algorithms/bidirectionalAStar";
 
 export default function GraphContainer() {
   const screenWidth: number = window.innerWidth;
-  const rows = screenWidth < 1200 ? 15 : screenWidth < 1500 ? 21 : 23;
-  const cols = screenWidth < 1200 ? 45 : screenWidth < 1500 ? 51 : 62;
+  const rows = screenWidth < 1350 ? 16 : screenWidth < 1500 ? 21 : 23;
+  const cols = screenWidth < 1350 ? 45 : screenWidth < 1500 ? 51 : 62;
   const graph: Graph = useMemo(() => new Graph(rows, cols), [rows, cols]);
 
   const [visitedNodes, setVisitedNodes] = useState<Set<Node>>();
@@ -57,6 +58,12 @@ export default function GraphContainer() {
       }
       case "Particle Swarm Algorithm": {
         const[visited, shortest]: [Set<Node>, Node[]] = particleSwarmAlgorithm(graph);
+        setVisitedNodes(visited);
+        setShortestPath(shortest);
+        break;
+      }
+      case "Bi-Directional A* (A-Star)": {
+        const [visited, shortest]: [Set<Node>, Node[]] = bidirectionalAStar(graph);
         setVisitedNodes(visited);
         setShortestPath(shortest);
         break;

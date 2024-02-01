@@ -43,7 +43,7 @@ export default function GraphComponent({
         nodeComponents.push(
           <NodeComponent
             key={`${i}-${j}`}
-            id={node.pos}
+            id={node.position}
             weight={node.weight}
             isVisited={node.visited}
             isStartNode={node.start}
