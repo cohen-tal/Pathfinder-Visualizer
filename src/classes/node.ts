@@ -1,5 +1,5 @@
 export default class Node {
-  pos: [number, number];
+  position: [number, number];
   weight: number;
   visited: boolean;
   start: boolean;
@@ -10,7 +10,7 @@ export default class Node {
   distance: number;
 
   constructor(
-    pos: [number, number],
+    position: [number, number],
     start: boolean,
     end: boolean,
     visited: boolean,
@@ -18,7 +18,7 @@ export default class Node {
     weight: number,
     parent: Node | null
   ) {
-    this.pos = pos;
+    this.position = position;
     this.weight = weight;
     this.start = start;
     this.end = end;

@@ -12,7 +12,7 @@ export default class Graph {
   }
 
   addNode(node: Node): void {
-    const [row, column]: [number, number] = node.pos;
+    const [row, column]: [number, number] = node.position;
     this.nodes[row][column] = node;
   }
 
@@ -83,7 +83,7 @@ export default class Graph {
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < columns; j++) {
         const node = this.nodes[i][j];
-        const [row, column] = node.pos;
+        const [row, column] = node.position;
 
         if (row > 0) {
           const topNeighbor = this.nodes[row - 1][column];
