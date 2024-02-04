@@ -30,7 +30,6 @@ export default function MenuItem({ children, onClick }: MenuItemProps) {
     onClick?.(item);
     toggleMenu();
   };
-  console.log(children);
   return (
     <motion.button
       variants={itemVariants}

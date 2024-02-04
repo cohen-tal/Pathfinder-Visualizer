@@ -7,9 +7,7 @@ export interface DropDownMenuProps {
   children?: ReactNode;
 }
 
-export const DropDownMenuContext = createContext<() => void>(() => {
-  console.log("MenuContext");
-});
+export const DropDownMenuContext = createContext<() => void>(() => {});
 
 const flex = {
   open: {

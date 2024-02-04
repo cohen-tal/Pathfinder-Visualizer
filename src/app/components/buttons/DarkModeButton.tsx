@@ -23,8 +23,6 @@ export default function DarkModeButton() {
     }
   }, [darkMode]);
 
-  console.log("darkmode:" + darkMode);
-
   return (
     <div className="absolute flex flex-row right-40 pb-0.5">
       <div className="w-[1px] h-15 bg-slate-900/10 dark:bg-slate-300/10 mr-5" />
