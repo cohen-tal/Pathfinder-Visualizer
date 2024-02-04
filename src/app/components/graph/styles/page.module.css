@@ -80,7 +80,7 @@
 @media (max-width: 1350px) {
   .grid {
     grid-template-columns: repeat(53, 1fr);
-    grid-template-rows: repeat(16, 1fr);
+    grid-template-rows: repeat(17, 1fr);
     gap: 0px;
   }
 }

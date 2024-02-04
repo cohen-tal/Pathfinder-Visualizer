@@ -16,7 +16,7 @@ import binaryTree from "@/utils/maze/binary-tree";
 
 export default function GraphContainer() {
   const screenWidth: number = window.innerWidth;
-  const rows = screenWidth < 1350 ? 16 : screenWidth < 1500 ? 21 : 23;
+  const rows = screenWidth < 1350 ? 17 : screenWidth < 1500 ? 21 : 23;
   const cols = screenWidth < 1350 ? 53 : screenWidth < 1500 ? 51 : 62;
   const graph: Graph = useMemo(() => new Graph(rows, cols), [rows, cols]);
 
@@ -96,7 +96,7 @@ export default function GraphContainer() {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center w-full gap-8">
+      <div className="flex flex-col items-center justify-center w-full gap-4">
         <GraphControls alogrithm={calculatePath} maze={generateMaze}/>
         <Legend />
         <div className="border-slate-900/10 dark:border-slate-300/10 rounded-[7px] border-[1px] shadow-lg">
