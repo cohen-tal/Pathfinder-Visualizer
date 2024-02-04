@@ -7,16 +7,17 @@ import dijkstra from "@/utils/algorithms/dijkstra";
 import Graph from "@/classes/graph";
 import Node from "@/classes/node";
 import styles from "@/app/components/graph/styles/page.module.css";
-import { clearAnimations } from "@/utils/animationUtils";
+import { animateVisited, clearAnimations } from "@/utils/animationUtils";
 import Legend from "../legend/Legend";
 import AStar from "@/utils/algorithms/aStar";
 import dfs from "@/utils/algorithms/dfs";
 import bidirectionalAStar from "@/utils/algorithms/bidirectionalAStar";
+import binaryTree from "@/utils/maze/binary-tree";
 
 export default function GraphContainer() {
   const screenWidth: number = window.innerWidth;
   const rows = screenWidth < 1350 ? 16 : screenWidth < 1500 ? 21 : 23;
-  const cols = screenWidth < 1350 ? 45 : screenWidth < 1500 ? 51 : 62;
+  const cols = screenWidth < 1350 ? 53 : screenWidth < 1500 ? 51 : 62;
   const graph: Graph = useMemo(() => new Graph(rows, cols), [rows, cols]);
 
   const [visitedNodes, setVisitedNodes] = useState<Set<Node>>();
@@ -67,10 +68,36 @@ export default function GraphContainer() {
     }
   };
 
+  const generateMaze = (mazeToUse: string) => {
+    resetGraph();
+    switch (mazeToUse) {
+      case "Binary-Tree Algorithm": {
+        const walls = binaryTree(graph);
+        animateVisited(walls, styles.wall);
+        break;
+      }
+      // case "Maze2 Algo": {
+      //   graph.maze2Algo();
+      //   break;
+      // }
+      // case "Maze3 Algo": {
+      //   graph.maze3Algo();
+      //   break;
+      // }
+      // case "Maze4 Algo": {
+      //   graph.maze4Algo();
+      //   break;
+      // }
+      default: {
+        break;
+      }
+    }
+  }
+
   return (
     <>
       <div className="flex flex-col items-center justify-center w-full gap-8">
-        <GraphControls alogrithm={calculatePath} />
+        <GraphControls alogrithm={calculatePath} maze={generateMaze}/>
         <Legend />
         <div className="border-slate-900/10 dark:border-slate-300/10 rounded-[7px] border-[1px] shadow-lg">
           <GraphComponent

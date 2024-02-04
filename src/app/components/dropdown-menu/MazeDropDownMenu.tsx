@@ -9,7 +9,7 @@ export default function MazeDropDownMenu({
 }: DropDownMenuProps & { onMenuItemClicked: (algo: string) => void }) {
   return (
     <DropDownMenu menuName={menuName}>
-      <MenuItem onClick={onMenuItemClicked}>Maze1 Algo</MenuItem>
+      <MenuItem onClick={onMenuItemClicked}>Binary-Tree Algorithm</MenuItem>
       <MenuItem onClick={onMenuItemClicked}>Maze2 Algo</MenuItem>
       <MenuItem onClick={onMenuItemClicked}>Maze3 Algo</MenuItem>
       <MenuItem onClick={onMenuItemClicked}>Maze4 Algo</MenuItem>

@@ -6,13 +6,13 @@ import AlgoDropDownMenu from "../dropdown-menu/AlgoDropDownMenu";
 import MazeDropDownMenu from "../dropdown-menu/MazeDropDownMenu";
 import DarkModeButton from "../buttons/DarkModeButton";
 import Image from "next/image";
-import Link from "next/link";
 
 export interface TopBarProps {
   alogrithm: (algoToUse: string) => void;
+  maze: (mazeToUse: string) => void;
 }
 
-export default function TopBar({ alogrithm }: TopBarProps) {
+export default function TopBar({ alogrithm, maze }: TopBarProps) {
   const [algorithmToUse, setAlgorithmToUse] = useState<string>("Visualize!");
 
   const handleOnAlgorithmClicked = (algo: string) => {
@@ -58,7 +58,7 @@ export default function TopBar({ alogrithm }: TopBarProps) {
         onMenuItemClicked={handleOnAlgorithmClicked}
       />
       {renderVisualizeButton(algorithmToUse !== "Visualize!")}
-      <MazeDropDownMenu menuName="Mazes" onMenuItemClicked={() => {}} />
+      <MazeDropDownMenu menuName="Mazes" onMenuItemClicked={maze} />
       <DarkModeButton />
     </div>
   );
