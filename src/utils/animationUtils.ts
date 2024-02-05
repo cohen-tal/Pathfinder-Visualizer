@@ -9,7 +9,10 @@ export function clearAllAnimations(...styles: string[]) {
   });
 }
 
-export function clearAnimations(nodes: Array<Node> | Set<Node>, ...styles: string[]) {
+export function clearAnimations(
+  nodes: Array<Node> | Set<Node>,
+  ...styles: string[]
+) {
   nodes.forEach((node) => {
     const element = document.getElementById(
       `${node.position[0]}-${node.position[1]}`
@@ -23,10 +26,7 @@ export function clearAnimations(nodes: Array<Node> | Set<Node>, ...styles: strin
   });
 }
 
-export function animateVisited(
-  visited: Set<Node>,
-  styles: string
-): Promise<void>[] {
+export function animate(visited: Set<Node>, styles: string): Promise<void>[] {
   const visitedNodeElements: (HTMLElement | null)[] = Array.from(visited).map(
     (node) => document.getElementById(`${node.position[0]}-${node.position[1]}`)
   );
