@@ -117,4 +117,14 @@ export default class Graph {
       }
     }
   }
+
+  resetWalls() {
+    for (const row of this.nodes) {
+      for (const node of row) {
+        if (!node.start && !node.end) {
+          node.wall = false;
+        }
+      }
+    }
+  }
 }
