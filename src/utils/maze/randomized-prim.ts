@@ -1,7 +1,5 @@
 import Graph from "@/classes/graph";
 import Node from "@/classes/node";
-import { animate } from "../animationUtils";
-import styles from "@/app/components/graph/styles/page.module.css";
 
 export default function randomizedPrim(graph: Graph): Set<Node> {
   const walls: Set<Node> = new Set<Node>();
@@ -15,24 +13,9 @@ export default function randomizedPrim(graph: Graph): Set<Node> {
       if (!node.start && !node.end) {
         node.wall = true;
         walls.add(node);
-        // const element = document.getElementById(`${node.position[0]}-${node.position[1]}`);
-        // if (element) {
-        //     element.classList.add(styles.wallBg);
-        // }
       }
     });
   });
-
-  // animateVisited(walls, styles.wall);
-
-  // graph.nodes.forEach((row, i) => {
-  //     row.forEach((node, j) => {
-  //         if (i === 0 || i === rows - 1 || j === 0 || j === cols - 1) {
-  //             visited.add(node);
-  //             wallList.push(...node.neighbors);
-  //         }
-  //     });
-  // });
 
   const start: Node = graph.getEndNode();
   visited.add(start);
