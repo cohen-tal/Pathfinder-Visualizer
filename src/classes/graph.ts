@@ -30,9 +30,9 @@ export default class Graph {
     node.end = true;
   }
 
-  setWallNode(row: number, column: number) {
+  setWallNode(row: number, column: number, wall: boolean) {
     const node = this.nodes[row][column];
-    node.toggleWall();
+    node.setWall(wall);
   }
 
   setVisitedNode(row: number, column: number) {
@@ -114,6 +114,16 @@ export default class Graph {
         node.visited = false;
         node.parent = null;
         node.distance = 0;
+      }
+    }
+  }
+
+  resetWalls() {
+    for (const row of this.nodes) {
+      for (const node of row) {
+        if (!node.start && !node.end) {
+          node.wall = false;
+        }
       }
     }
   }

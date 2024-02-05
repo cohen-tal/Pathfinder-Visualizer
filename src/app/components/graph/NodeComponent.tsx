@@ -10,7 +10,7 @@ export interface NodeProps {
   isStartNode: boolean;
   isEndNode: boolean;
   isWall: boolean;
-  changeWall: (id: [number, number]) => void;
+  changeWall: (id: [number, number], wall: boolean) => void;
   changeWeight: (id: [number, number]) => void;
 }
 
@@ -41,14 +41,14 @@ export default function NodeComponent({
       width="24"
       height="24"
       onClick={() => {
-        setWall(!wall);
-        changeWall(id);
+        setWall((prev) => !prev);
+        changeWall(id, !wall);
       }}
       onMouseEnter={debounce((e) => {
         e.preventDefault();
         if (e.buttons === 1) {
-          setWall(!wall);
-          changeWall(id);
+          setWall((prev) => !prev);
+          changeWall(id, !wall);
         } else if (e.buttons === 2) {
           setWeightNode((weight) => {
             if (weight === 1) {

@@ -4,7 +4,7 @@ import NodeComponent from "./NodeComponent";
 import Graph from "@/classes/graph";
 import Node from "@/classes/node";
 import styles from "./styles/page.module.css";
-import { animateShortestPath, animateVisited } from "@/utils/animationUtils";
+import { animateShortestPath, animate } from "@/utils/animationUtils";
 
 export interface GraphProps {
   graph: Graph;
@@ -24,9 +24,9 @@ export default function GraphComponent({
   const graphNodes: Node[][] = graph.nodes;
   const [nodes, setNodes] = useState<JSX.Element[]>([]);
 
-  const changeWall = (id: [number, number]) => {
+  const changeWall = (id: [number, number], wall: boolean) => {
     const [row, col] = id;
-    graph.setWallNode(row, col);
+    graph.setWallNode(row, col, wall);
   };
 
   const changeWeight = (id: [number, number]) => {
@@ -60,7 +60,7 @@ export default function GraphComponent({
 
   useEffect(() => {
     if (visitedNodes) {
-      const visitedNodeAnimations: Promise<void>[] = animateVisited(
+      const visitedNodeAnimations: Promise<void>[] = animate(
         visitedNodes,
         styles.visited
       );
@@ -75,11 +75,5 @@ export default function GraphComponent({
     }
   }, [visitedNodes, shortestPath]);
 
-  return (
-    <div
-      className={`${styles.grid} hover:cursor-pointer`}
-    >
-      {nodes}
-    </div>
-  );
+  return <div className={`${styles.grid} hover:cursor-pointer`}>{nodes}</div>;
 }

@@ -7,12 +7,17 @@ import dijkstra from "@/utils/algorithms/dijkstra";
 import Graph from "@/classes/graph";
 import Node from "@/classes/node";
 import styles from "@/app/components/graph/styles/page.module.css";
-import { animateVisited, clearAnimations } from "@/utils/animationUtils";
+import {
+  animate,
+  clearAllAnimations,
+  clearAnimations,
+} from "@/utils/animationUtils";
 import Legend from "../legend/Legend";
 import AStar from "@/utils/algorithms/aStar";
 import dfs from "@/utils/algorithms/dfs";
 import bidirectionalAStar from "@/utils/algorithms/bidirectionalAStar";
 import binaryTree from "@/utils/maze/binary-tree";
+import randomizedPrim from "@/utils/maze/randomized-prim";
 
 export default function GraphContainer() {
   const screenWidth: number = window.innerWidth;
@@ -25,7 +30,12 @@ export default function GraphContainer() {
 
   const resetGraph = () => {
     graph.reset();
-    clearAnimations(styles.visited, styles.shortestPath);
+    clearAllAnimations(styles.visited, styles.shortestPath);
+  };
+
+  const resetWalls = () => {
+    graph.resetWalls();
+    clearAllAnimations(styles.maze, styles.wallBg, styles.wall);
   };
 
   const calculatePath = (algorithmToUse: string) => {
@@ -57,7 +67,8 @@ export default function GraphContainer() {
         break;
       }
       case "Bi-Directional A* (A-Star)": {
-        const [visited, shortest]: [Set<Node>, Node[]] = bidirectionalAStar(graph);
+        const [visited, shortest]: [Set<Node>, Node[]] =
+          bidirectionalAStar(graph);
         setVisitedNodes(visited);
         setShortestPath(shortest);
         break;
@@ -68,18 +79,20 @@ export default function GraphContainer() {
     }
   };
 
-  const generateMaze = (mazeToUse: string) => {
+  const generateMaze = async (mazeToUse: string) => {
     resetGraph();
+    resetWalls();
     switch (mazeToUse) {
       case "Binary-Tree Algorithm": {
         const walls = binaryTree(graph);
-        animateVisited(walls, styles.wall);
+        animate(walls, styles.wall);
         break;
       }
-      // case "Maze2 Algo": {
-      //   graph.maze2Algo();
-      //   break;
-      // }
+      case "Randomized Prim Algorithm": {
+        const maze: Set<Node> = randomizedPrim(graph);
+        animate(maze, styles.wall);
+        break;
+      }
       // case "Maze3 Algo": {
       //   graph.maze3Algo();
       //   break;
@@ -92,12 +105,12 @@ export default function GraphContainer() {
         break;
       }
     }
-  }
+  };
 
   return (
     <>
       <div className="flex flex-col items-center justify-center w-full gap-4">
-        <GraphControls alogrithm={calculatePath} maze={generateMaze}/>
+        <GraphControls alogrithm={calculatePath} maze={generateMaze} />
         <Legend />
         <div className="border-slate-900/10 dark:border-slate-300/10 rounded-[7px] border-[1px] shadow-lg">
           <GraphComponent

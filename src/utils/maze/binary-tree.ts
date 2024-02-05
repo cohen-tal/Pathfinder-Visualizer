@@ -35,15 +35,13 @@ export default function binaryTreeMaze(graph: Graph): Set<Node> {
         }
     }
 
-    const flip: boolean = Math.random() > 0.5;
-    if (flip) {
-        for (let i = cols - 2; i > 0; i--) {
-            path.push(graph.nodes[rows - 2][i]);
-        }
-    } else {
-        for (let i = cols - 2; i > 0; i--) {
-            path.push(graph.nodes[1][i]);
-        }
+    
+    for (let i = cols - 2; i > 0; i--) {
+        path.push(graph.nodes[rows - 2][i]);
+    }
+
+    for (let i = cols - 2; i > 0; i--) {
+        path.push(graph.nodes[1][i]);
     }
 
     path.forEach((node) => {
