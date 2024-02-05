@@ -5,6 +5,33 @@
   gap: 0px;
 }
 
+.wallBg {
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 4px;
+}
+
+.maze {
+  animation-name: mazeAnimation;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0.1s;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+
+  &.wall {
+  animation-name: mazeAnimation;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0.1s;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+  }
+}
+
 .visited {
   animation-name: visitedAnimation;
   animation-duration: 1s;
@@ -14,6 +41,14 @@
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
   animation-play-state: running;
+
+  &.wallBg {
+    background-color: transparent;
+  }
+
+  &.maze {
+    background-color: transparent;
+  }
 }
 
 .shortestPath {
@@ -175,4 +210,29 @@
     background-color: #f8e4c9;
     border-radius: 4px;
   }
+}
+
+@keyframes mazeAnimation {
+
+  0% {
+    transform: scale(0.8);
+    background-color: rgba(0, 0, 0, 0.75);
+    border-radius: 4px;
+  }
+
+  50% {
+    scale: 1.1;
+  }
+
+  75% {
+    transform: scale(1.1);
+    background-color: rgba(255, 255, 255, 0.076);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: transparent;
+    border-radius: 4px;
+  }
+  
 }

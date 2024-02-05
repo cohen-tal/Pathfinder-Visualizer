@@ -10,7 +10,7 @@ export default function MazeDropDownMenu({
   return (
     <DropDownMenu menuName={menuName}>
       <MenuItem onClick={onMenuItemClicked}>Binary-Tree Algorithm</MenuItem>
-      <MenuItem onClick={onMenuItemClicked}>Maze2 Algo</MenuItem>
+      <MenuItem onClick={onMenuItemClicked}>Randomized Prim Algorithm</MenuItem>
       <MenuItem onClick={onMenuItemClicked}>Maze3 Algo</MenuItem>
       <MenuItem onClick={onMenuItemClicked}>Maze4 Algo</MenuItem>
     </DropDownMenu>
