@@ -37,7 +37,7 @@ export default class Node {
     this.neighbors.filter((node) => node !== neighbor);
   }
 
-  toggleWall() {
-    this.wall = !this.wall;
+  setWall(wall: boolean) {
+    this.wall = wall;
   }
 }

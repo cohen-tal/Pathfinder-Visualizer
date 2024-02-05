@@ -30,9 +30,9 @@ export default class Graph {
     node.end = true;
   }
 
-  setWallNode(row: number, column: number) {
+  setWallNode(row: number, column: number, wall: boolean) {
     const node = this.nodes[row][column];
-    node.toggleWall();
+    node.setWall(wall);
   }
 
   setVisitedNode(row: number, column: number) {
