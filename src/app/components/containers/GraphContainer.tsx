@@ -1,5 +1,5 @@
 "use client";
-import { useState, useMemo } from "react";
+import { useState, useMemo} from "react";
 import GraphControls from "../topbar/TopBar";
 import GraphComponent from "../graph/GraphComponent";
 import bfs from "@/utils/algorithms/bfs";
@@ -20,13 +20,10 @@ import binaryTree from "@/utils/maze/binary-tree";
 import randomizedPrim from "@/utils/maze/randomized-prim";
 
 export default function GraphContainer() {
-  const screenWidth: number = window.innerWidth;
-  const rows = screenWidth < 1350 ? 17 : screenWidth < 1500 ? 21 : 23;
-  const cols = screenWidth < 1350 ? 53 : screenWidth < 1500 ? 51 : 62;
-  const graph: Graph = useMemo(() => new Graph(rows, cols), [rows, cols]);
-
   const [visitedNodes, setVisitedNodes] = useState<Set<Node>>();
   const [shortestPath, setShortestPath] = useState<Node[]>();
+
+  const graph: Graph = useMemo(() => new Graph(24, 64), []);
 
   const resetGraph = () => {
     graph.reset();
@@ -93,14 +90,6 @@ export default function GraphContainer() {
         animate(maze, styles.wall);
         break;
       }
-      // case "Maze3 Algo": {
-      //   graph.maze3Algo();
-      //   break;
-      // }
-      // case "Maze4 Algo": {
-      //   graph.maze4Algo();
-      //   break;
-      // }
       default: {
         break;
       }

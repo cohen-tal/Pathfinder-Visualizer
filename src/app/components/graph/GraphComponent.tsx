@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import NodeComponent from "./NodeComponent";
 import Graph from "@/classes/graph";
 import Node from "@/classes/node";
@@ -8,35 +8,30 @@ import { animateShortestPath, animate } from "@/utils/animationUtils";
 
 export interface GraphProps {
   graph: Graph;
-  rows?: number;
-  cols?: number;
   visitedNodes?: Set<Node>;
   shortestPath?: Node[];
 }
 
 export default function GraphComponent({
   graph,
-  rows = 21,
-  cols = 51,
   visitedNodes,
   shortestPath,
 }: GraphProps) {
-  const graphNodes: Node[][] = graph.nodes;
-  const [nodes, setNodes] = useState<JSX.Element[]>([]);
-
-  const changeWall = (id: [number, number], wall: boolean) => {
+  
+  const changeWall = useCallback((id: [number, number], wall: boolean) => {
     const [row, col] = id;
     graph.setWallNode(row, col, wall);
-  };
+  }, [graph]);
 
-  const changeWeight = (id: [number, number]) => {
+  const changeWeight = useCallback((id: [number, number], weight: number) => {
     const [row, col] = id;
-    graph.setWeightNode(row, col);
-  };
+    graph.setWeightNode(row, col, weight);
+  },[graph]);
 
-  //todo: change useEffect to useMemo to prevent re-rendering
-  useEffect(() => {
+
+  const memoizedNodes: JSX.Element[] = useMemo(() => {
     const nodeComponents: JSX.Element[] = [];
+    const graphNodes: Node[][] = graph.nodes;
     for (let i = 0; i < graphNodes.length; i++) {
       for (let j = 0; j < graphNodes[i].length; j++) {
         const node: Node = graphNodes[i][j];
@@ -55,8 +50,8 @@ export default function GraphComponent({
         );
       }
     }
-    setNodes(nodeComponents);
-  }, []);
+    return nodeComponents;
+  }, [graph, changeWall, changeWeight]);
 
   useEffect(() => {
     if (visitedNodes) {
@@ -75,5 +70,5 @@ export default function GraphComponent({
     }
   }, [visitedNodes, shortestPath]);
 
-  return <div className={`${styles.grid} hover:cursor-pointer`}>{nodes}</div>;
+   return <div className={`grid grid-cols-[repeat(64,1fr)] grid-rows-[repeat(24,1fr)] hover:cursor-pointer`}>{memoizedNodes}</div>;
 }
