@@ -40,13 +40,9 @@ export default class Graph {
     node.visited = true;
   }
 
-  setWeightNode(row: number, column: number) {
+  setWeightNode(row: number, column: number, weight: number) {
     const node = this.nodes[row][column];
-    if (node.weight === 1) {
-      node.weight = 2;
-    } else {
-      node.weight = 1;
-    }
+    node.weight = weight;
   }
 
   getStartNode(): Node {

@@ -11,7 +11,7 @@ export interface NodeProps {
   isEndNode: boolean;
   isWall: boolean;
   changeWall: (id: [number, number], wall: boolean) => void;
-  changeWeight: (id: [number, number]) => void;
+  changeWeight: (id: [number, number], weight: number) => void;
 }
 
 export default function NodeComponent({
@@ -26,6 +26,12 @@ export default function NodeComponent({
 }: NodeProps) {
   const [wall, setWall] = useState<boolean>(isWall);
   const [weightNode, setWeightNode] = useState<number>(weight);
+
+  const handleWeightChange = (weight: number) => {
+    setWeightNode(weight);
+    changeWeight(id, weight);
+    };
+  
   return (
     <svg
       className={
@@ -38,8 +44,8 @@ export default function NodeComponent({
           : ""
       }
       id={`${id[0]}-${id[1]}`}
-      width="24"
-      height="24"
+      width="20"
+      height="20"
       onClick={() => {
         setWall((prev) => !prev);
         changeWall(id, !wall);
@@ -50,35 +56,21 @@ export default function NodeComponent({
           setWall((prev) => !prev);
           changeWall(id, !wall);
         } else if (e.buttons === 2) {
-          setWeightNode((weight) => {
-            if (weight === 1) {
-              return 2;
-            } else {
-              return 1;
-            }
-          });
-          changeWeight(id);
+          weightNode === 1 ? handleWeightChange(5) : handleWeightChange(1);
         }
       }, 100)}
       onContextMenu={(e) => {
         e.preventDefault();
-        setWeightNode((weight) => {
-          if (weight === 1) {
-            return 2;
-          } else {
-            return 1;
-          }
-        });
-        changeWeight(id);
+        weightNode === 1 ? handleWeightChange(5) : handleWeightChange(1);
       }}
     >
       <rect
         x="0"
         y="0"
-        rx="7"
-        ry="7"
-        width="24"
-        height="24"
+        rx="5"
+        ry="5"
+        width="20"
+        height="20"
         className="stroke-current text-blue-500 dark:text-white"
         style={{
           fill: isStartNode
@@ -92,9 +84,9 @@ export default function NodeComponent({
           opacity: 0.2,
         }}
       />
-      {isStartNode && <image href="/start-here.svg" height={24} width={24} />}
-      {isEndNode && <image href="/marker-pin.svg" height={20} width={23} />}
-      {weightNode > 1 && <image href="/weight.svg" height={20} width={23} />}
+      {isStartNode && <image href="/start-here.svg" height={20} width={20} />}
+      {isEndNode && <image href="/marker-pin.svg" height={20} width={20} />}
+      {weightNode > 1 && <image href="/weight.svg" height={20} width={20} />}
     </svg>
   );
 }
