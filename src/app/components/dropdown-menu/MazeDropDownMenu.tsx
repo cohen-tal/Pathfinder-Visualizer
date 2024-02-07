@@ -1,4 +1,4 @@
-import React from "react";
+import {useState} from "react";
 import DropDownMenu, { DropDownMenuProps } from "../menu/DropDownMenu";
 import MenuItem from "../menu/MenuItem";
 
@@ -7,12 +7,21 @@ export default function MazeDropDownMenu({
   children,
   onMenuItemClicked,
 }: DropDownMenuProps & { onMenuItemClicked: (algo: string) => void }) {
+  const [menu, setMenu] = useState<string>("Mazes");
+  const [isItemClicked, setIsItemClicked] = useState<boolean>(false);
+  
+  const handleOnClick = (algo: string) => {
+    setIsItemClicked(true);
+    setMenu(algo);
+    onMenuItemClicked(algo);
+  }
+
   return (
-    <DropDownMenu menuName={menuName}>
-      <MenuItem onClick={onMenuItemClicked}>Binary-Tree Algorithm</MenuItem>
-      <MenuItem onClick={onMenuItemClicked}>Randomized Prim Algorithm</MenuItem>
-      <MenuItem onClick={onMenuItemClicked}>Maze3 Algo</MenuItem>
-      <MenuItem onClick={onMenuItemClicked}>Maze4 Algo</MenuItem>
+    <DropDownMenu menuName={menu} isItemClicked={isItemClicked}>
+      <MenuItem onClick={handleOnClick}>Binary-Tree Algorithm</MenuItem>
+      <MenuItem onClick={handleOnClick}>Randomized Prim Algorithm</MenuItem>
+      <MenuItem onClick={handleOnClick}>Maze3 Algo</MenuItem>
+      <MenuItem onClick={handleOnClick}>Maze4 Algo</MenuItem>
     </DropDownMenu>
   );
 }
