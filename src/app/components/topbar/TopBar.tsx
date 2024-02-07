@@ -6,13 +6,17 @@ import AlgoDropDownMenu from "../dropdown-menu/AlgoDropDownMenu";
 import MazeDropDownMenu from "../dropdown-menu/MazeDropDownMenu";
 import DarkModeButton from "../buttons/DarkModeButton";
 import Image from "next/image";
+import ResetDropDownMenu from "../dropdown-menu/ResetDropDownMenu";
 
 export interface TopBarProps {
   alogrithm: (algoToUse: string) => void;
   maze: (mazeToUse: string) => void;
+  resetAll: () => void;
+  resetWalls: () => void;
+  resetWeights: () => void;
 }
 
-export default function TopBar({ alogrithm, maze }: TopBarProps) {
+export default function TopBar({ alogrithm, maze, resetAll, resetWalls, resetWeights }: TopBarProps) {
   const [algorithmToUse, setAlgorithmToUse] = useState<string>("Visualize!");
 
   const handleOnAlgorithmClicked = (algo: string) => {
@@ -48,8 +52,8 @@ export default function TopBar({ alogrithm, maze }: TopBarProps) {
   };
 
   return (
-    <div className="flex flex-row items-center justify-center gap-12 w-full h-14 border-slate-900/10 dark:border-slate-300/10 dark:bg-slate-700 top-0 self-center border-b">
-      <div className="absolute left-6 flex flex-row items-center" >
+    <div className="flex flex-row items-center justify-start gap-12 w-full h-14 border-slate-900/10 dark:border-slate-300/10 dark:bg-slate-700 top-0 self-center border-b">
+      <div className="flex flex-row items-center" >
       <Image src="/logo.png" width={50} height={50} alt="logo" />
       <h1 className="font-semibold text-2xl p-4">Pathfinder Visualizer</h1>
       </div>
@@ -59,6 +63,7 @@ export default function TopBar({ alogrithm, maze }: TopBarProps) {
       />
       {renderVisualizeButton(algorithmToUse !== "Visualize!")}
       <MazeDropDownMenu menuName="Mazes" onMenuItemClicked={maze} />
+      <ResetDropDownMenu menuName="Reset" resetAll={resetAll} resetWalls={resetWalls} resetWeights={resetWeights} />
       <DarkModeButton />
     </div>
   );
