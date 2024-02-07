@@ -123,4 +123,15 @@ export default class Graph {
       }
     }
   }
+
+  resetWeights() {
+    for (const row of this.nodes) {
+      for (const node of row) {
+        if (!node.start && !node.end) {
+          node.weight = 1;
+        }
+      }
+    }
+  }
+
 }

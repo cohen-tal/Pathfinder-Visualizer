@@ -1,6 +1,6 @@
 "use client";
 import { useState, useMemo} from "react";
-import GraphControls from "../topbar/TopBar";
+import TopBar from "../topbar/TopBar";
 import GraphComponent from "../graph/GraphComponent";
 import bfs from "@/utils/algorithms/bfs";
 import dijkstra from "@/utils/algorithms/dijkstra";
@@ -23,7 +23,7 @@ export default function GraphContainer() {
   const [visitedNodes, setVisitedNodes] = useState<Set<Node>>();
   const [shortestPath, setShortestPath] = useState<Node[]>();
 
-  const graph: Graph = useMemo(() => new Graph(24, 64), []);
+  const graph: Graph = useMemo(() => new Graph(21, 64), []);
 
   const resetGraph = () => {
     graph.reset();
@@ -34,6 +34,11 @@ export default function GraphContainer() {
     graph.resetWalls();
     clearAllAnimations(styles.maze, styles.wallBg, styles.wall);
   };
+
+  const resetWeights = () => {
+    graph.resetWeights();
+    clearAllAnimations(styles.weight);
+  }
 
   const calculatePath = (algorithmToUse: string) => {
     resetGraph();
@@ -99,7 +104,13 @@ export default function GraphContainer() {
   return (
     <>
       <div className="flex flex-col items-center justify-center w-full gap-4">
-        <GraphControls alogrithm={calculatePath} maze={generateMaze} />
+        <TopBar 
+        alogrithm={calculatePath} 
+        maze={generateMaze} 
+        resetAll={resetGraph}
+        resetWalls={resetWalls}
+        resetWeights={resetWeights}
+         />
         <Legend />
         <div className="border-slate-900/10 dark:border-slate-300/10 rounded-[7px] border-[1px] shadow-lg">
           <GraphComponent
