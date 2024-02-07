@@ -4,6 +4,7 @@ import { ReactNode, createContext, useRef } from "react";
 
 export interface DropDownMenuProps {
   menuName: string;
+  isItemClicked?: boolean;
   children?: ReactNode;
 }
 
@@ -21,12 +22,13 @@ const flex = {
 export default function DropDownMenu({
   children,
   menuName,
+  isItemClicked = false,
 }: DropDownMenuProps) {
   const [open, toggleOpen] = useCycle(false, true);
   const ToggleButtonRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="flex flex-col items-center gap-1">
+    <div className={isItemClicked ? "flex flex-col items-center gap-1 border rounded-md p-1 bg-slate-700/5" : "flex flex-col items-center gap-1"}>
       <MenuToggleButton
         buttonText={menuName}
         onClick={() => toggleOpen()}
