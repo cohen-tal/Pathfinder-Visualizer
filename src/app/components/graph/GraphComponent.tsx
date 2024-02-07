@@ -28,7 +28,6 @@ export default function GraphComponent({
     graph.setWeightNode(row, col, weight);
   },[graph]);
 
-
   const memoizedNodes: JSX.Element[] = useMemo(() => {
     const nodeComponents: JSX.Element[] = [];
     const graphNodes: Node[][] = graph.nodes;
@@ -70,5 +69,5 @@ export default function GraphComponent({
     }
   }, [visitedNodes, shortestPath]);
 
-   return <div className={`grid grid-cols-[repeat(64,1fr)] grid-rows-[repeat(24,1fr)] hover:cursor-pointer`}>{memoizedNodes}</div>;
+   return <div className={`grid grid-cols-[repeat(64,1fr)] grid-rows-[repeat(21 ,1fr)] hover:cursor-pointer`}>{memoizedNodes}</div>;
 }
