@@ -1,6 +1,5 @@
 import React from "react";
 import { motion } from "framer-motion";
-import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import Image from "next/image";
 
 export default function Legend() {
@@ -30,7 +29,7 @@ export default function Legend() {
           <p className="font-[Roboto] font-normal">End Node</p>
         </div>
         <div className="flex flex-row items-center gap-2 pr-4">
-          <motion.div className="w-8 h-8 bg-[#f59e0b]/25 border border-slate-200/75 rounded-[7px] shadow-lg">
+          <motion.div className="w-8 h-8 bg-[#f59e0be0] border border-slate-200/75 rounded-[7px] shadow-lg">
             <Image src="/weight.svg" alt="weight icon" width={32} height={32} />
           </motion.div>
           <p className="font-[Roboto] font-normal">Weighted Node</p>
@@ -42,12 +41,12 @@ export default function Legend() {
         <div className="flex flex-row items-center gap-2 pr-4">
           <motion.div className="w-8 h-8 bg-[#00bedabf] border border-slate-200/75 rounded-[7px] shadow-lg" />
           <p className="font-[Roboto] font-normal">Visited Node</p>
-          </div>
+        </div>
         <div className="flex flex-row items-center gap-2 pr-4">
           <motion.div className="w-8 h-8 bg-[#fc04c699] border border-slate-200/75 rounded-[7px] shadow-lg" />
           <p className="font-[Roboto] font-normal">Shortest Path Node</p>
+        </div>
       </div>
-    </div>
     </div>
   );
 }
