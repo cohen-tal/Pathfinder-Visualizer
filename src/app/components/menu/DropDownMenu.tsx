@@ -1,6 +1,7 @@
 import { motion, useCycle } from "framer-motion";
 import MenuToggleButton from "./MenuToggleButton";
 import { ReactNode, createContext, useRef } from "react";
+import { ClickAwayListener } from "@mui/material";
 
 export interface DropDownMenuProps {
   menuName: string;
@@ -28,26 +29,40 @@ export default function DropDownMenu({
   const ToggleButtonRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className={isItemClicked ? "flex flex-col items-center gap-1 border rounded-md p-1 bg-slate-700/5" : "flex flex-col items-center gap-1"}>
-      <MenuToggleButton
-        buttonText={menuName}
-        onClick={() => toggleOpen()}
-        compRef={ToggleButtonRef}
-      />
-      {open && (
-        <motion.div
-          className="absolute top-10 mt-2 min-w-max flex flex-col p-[5px] z-50 bg-white dark:bg-slate-700 border-slate-900/10 dark:border-slate-300/10 rounded border-[1px] shadow-lg"
-          initial="closed"
-          animate={"open"}
-          variants={flex}
-        >
-          <DropDownMenuContext.Provider
-            value={() => ToggleButtonRef.current?.click()}
+    <ClickAwayListener
+      onClickAway={() => {
+        open && toggleOpen();
+      }}
+    >
+      <div
+        className={
+          isItemClicked
+            ? "flex flex-col items-center gap-1 border rounded-md p-1 bg-sky-500/15 dark:bg-slate-700/5"
+            : "flex flex-col items-center gap-1"
+        }
+      >
+        <MenuToggleButton
+          buttonText={menuName}
+          onClick={() => {
+            toggleOpen();
+          }}
+          compRef={ToggleButtonRef}
+        />
+        {open && (
+          <motion.div
+            className="absolute top-10 mt-2 min-w-max flex flex-col p-[5px] z-50 bg-white dark:bg-slate-700 border-slate-900/10 dark:border-slate-300/10 rounded border-[1px] shadow-lg"
+            initial="closed"
+            animate={"open"}
+            variants={flex}
           >
-            {children}
-          </DropDownMenuContext.Provider>
-        </motion.div>
-      )}
-    </div>
+            <DropDownMenuContext.Provider
+              value={() => ToggleButtonRef.current?.click()}
+            >
+              {children}
+            </DropDownMenuContext.Provider>
+          </motion.div>
+        )}
+      </div>
+    </ClickAwayListener>
   );
 }
