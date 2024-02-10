@@ -8,8 +8,8 @@ export default function randomizedPrim(graph: Graph): Set<Node> {
   const wallList: Node[] = [];
   const visited: Set<Node> = new Set<Node>();
 
-  graph.nodes.forEach((row, i) => {
-    row.forEach((node, j) => {
+  graph.nodes.forEach((row) => {
+    row.forEach((node) => {
       if (!node.start && !node.end) {
         node.wall = true;
         walls.add(node);
