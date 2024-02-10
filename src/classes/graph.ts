@@ -104,7 +104,19 @@ export default class Graph {
     }
   }
 
-  reset() {
+  resetAll() {
+    for (const row of this.nodes) {
+      for (const node of row) {
+        node.visited = false;
+        node.parent = null;
+        node.distance = 0;
+        node.wall = false;
+        node.weight = 1;
+      }
+    }
+  }
+
+  resetVisited() {
     for (const row of this.nodes) {
       for (const node of row) {
         node.visited = false;
@@ -133,5 +145,4 @@ export default class Graph {
       }
     }
   }
-
 }
