@@ -9,7 +9,11 @@ export default function ResetDropDownMenu({
   resetAll,
   resetWalls,
   resetWeights,
-}: DropDownMenuProps & { resetAll: () => void, resetWalls: () => void, resetWeights: () => void }) {
+}: DropDownMenuProps & {
+  resetAll: () => void;
+  resetWalls: () => void;
+  resetWeights: () => void;
+}) {
   return (
     <DropDownMenu menuName={menuName}>
       <MenuItem onClick={resetAll}>Reset All</MenuItem>
