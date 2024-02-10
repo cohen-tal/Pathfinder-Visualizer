@@ -1,56 +1,56 @@
 "use client";
-import { useCallback, useEffect, useMemo } from "react";
+import { useEffect, useState } from "react";
 import NodeComponent from "./NodeComponent";
-import Graph from "@/classes/graph";
 import Node from "@/classes/node";
 import styles from "./styles/page.module.css";
-import { animateShortestPath, animate } from "@/utils/animationUtils";
+import {
+  animateShortestPath,
+  animate,
+  animateSingle,
+} from "@/utils/animationUtils";
 
 export interface GraphProps {
-  graph: Graph;
+  graphNodes: Node[][];
+  children?: React.ReactNode;
   visitedNodes?: Set<Node>;
   shortestPath?: Node[];
 }
 
 export default function GraphComponent({
-  graph,
+  graphNodes,
+  children,
   visitedNodes,
   shortestPath,
 }: GraphProps) {
-  
-  const changeWall = useCallback((id: [number, number], wall: boolean) => {
-    const [row, col] = id;
-    graph.setWallNode(row, col, wall);
-  }, [graph]);
+  const [nodes, setNodes] = useState<Node[][]>(graphNodes);
 
-  const changeWeight = useCallback((id: [number, number], weight: number) => {
-    const [row, col] = id;
-    graph.setWeightNode(row, col, weight);
-  },[graph]);
+  function handleWeightChange(id: [number, number], weight: number) {
+    setNodes((prev) => {
+      const newGraphNodes: Node[][] = prev.map((row) => {
+        return row.map((node) => {
+          if (node.position[0] === id[0] && node.position[1] === id[1]) {
+            node.weight = weight;
+          }
+          return node;
+        });
+      });
+      return newGraphNodes;
+    });
+  }
 
-  const memoizedNodes: JSX.Element[] = useMemo(() => {
-    const nodeComponents: JSX.Element[] = [];
-    const graphNodes: Node[][] = graph.nodes;
-    for (let i = 0; i < graphNodes.length; i++) {
-      for (let j = 0; j < graphNodes[i].length; j++) {
-        const node: Node = graphNodes[i][j];
-        nodeComponents.push(
-          <NodeComponent
-            key={`${i}-${j}`}
-            id={node.position}
-            weight={node.weight}
-            isVisited={node.visited}
-            isStartNode={node.start}
-            isEndNode={node.end}
-            isWall={node.wall}
-            changeWall={changeWall}
-            changeWeight={changeWeight}
-          />
-        );
-      }
-    }
-    return nodeComponents;
-  }, [graph, changeWall, changeWeight]);
+  function handleWallChange(id: [number, number], wall: boolean) {
+    setNodes((prev) => {
+      const newGraphNodes: Node[][] = prev.map((row) => {
+        return row.map((node) => {
+          if (node.position[0] === id[0] && node.position[1] === id[1]) {
+            node.wall = wall;
+          }
+          return node;
+        });
+      });
+      return newGraphNodes;
+    });
+  }
 
   useEffect(() => {
     if (visitedNodes) {
@@ -69,5 +69,30 @@ export default function GraphComponent({
     }
   }, [visitedNodes, shortestPath]);
 
-   return <div className={`grid grid-cols-[repeat(64,1fr)] grid-rows-[repeat(21 ,1fr)] hover:cursor-pointer`}>{memoizedNodes}</div>;
+  return (
+    <div
+      className={`grid grid-cols-[repeat(64,1fr)] grid-rows-[repeat(21 ,1fr)] hover:cursor-pointer`}
+    >
+      {nodes.map((row) => {
+        return row.map((node) => {
+          return (
+            <NodeComponent
+              key={`${node.position[0]}-${node.position[1]}`}
+              id={node.position}
+              weight={node.weight}
+              isStartNode={node.start}
+              isEndNode={node.end}
+              isWall={node.wall}
+              changeWall={(id: [number, number], wall: boolean) => {
+                handleWallChange(id, wall);
+              }}
+              changeWeight={(id: [number, number], weight: number) => {
+                handleWeightChange(id, weight);
+              }}
+            />
+          );
+        });
+      })}
+    </div>
+  );
 }
