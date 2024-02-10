@@ -21,13 +21,12 @@ export function clearAnimations(
       styles.forEach((style) => {
         element.classList.remove(style);
       });
-      console.log(element.classList);
     }
   });
 }
 
-export function animate(visited: Set<Node>, styles: string): Promise<void>[] {
-  const visitedNodeElements: (HTMLElement | null)[] = Array.from(visited).map(
+export function animate(nodes: Set<Node>, styles: string): Promise<void>[] {
+  const visitedNodeElements: (HTMLElement | null)[] = Array.from(nodes).map(
     (node) => document.getElementById(`${node.position[0]}-${node.position[1]}`)
   );
 
@@ -43,6 +42,24 @@ export function animate(visited: Set<Node>, styles: string): Promise<void>[] {
       })
   );
   return visitedNodeAnimations;
+}
+
+export function animateSingle(node: Node | [number, number], styles: string) {
+  if (node instanceof Node) {
+    const nodeElement: HTMLElement | null = document.getElementById(
+      `${node.position[0]}-${node.position[1]}`
+    );
+    if (nodeElement) {
+      nodeElement.classList.add(styles);
+    }
+  } else {
+    const nodeElement: HTMLElement | null = document.getElementById(
+      `${node[0]}-${node[1]}`
+    );
+    if (nodeElement) {
+      nodeElement.classList.add(styles);
+    }
+  }
 }
 
 export function animateShortestPath(path: Node[], styles: string) {
