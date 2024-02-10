@@ -1,12 +1,9 @@
-"use client";
-import { useState } from "react";
 import styles from "./styles/page.module.css";
-import { debounce } from "lodash";
 
 export interface NodeProps {
   id: [number, number];
   weight: number;
-  isVisited: boolean;
+  isVisited?: boolean;
   isStartNode: boolean;
   isEndNode: boolean;
   isWall: boolean;
@@ -24,22 +21,18 @@ export default function NodeComponent({
   changeWall,
   changeWeight,
 }: NodeProps) {
-  const [wall, setWall] = useState<boolean>(isWall);
-  const [weightNode, setWeightNode] = useState<number>(weight);
-
   const handleWeightChange = (weight: number) => {
-    setWeightNode(weight);
     changeWeight(id, weight);
-    };
-  
+  };
+
   return (
     <svg
       className={
         isVisited
           ? styles.visited
-          : wall
+          : isWall
           ? styles.wall
-          : weightNode > 1
+          : weight > 1
           ? styles.weight
           : ""
       }
@@ -47,21 +40,19 @@ export default function NodeComponent({
       width="20"
       height="20"
       onClick={() => {
-        setWall((prev) => !prev);
-        changeWall(id, !wall);
+        changeWall(id, !isWall);
       }}
-      onMouseEnter={debounce((e) => {
+      onMouseEnter={(e) => {
         e.preventDefault();
         if (e.buttons === 1) {
-          setWall((prev) => !prev);
-          changeWall(id, !wall);
+          changeWall(id, !isWall);
         } else if (e.buttons === 2) {
-          weightNode === 1 ? handleWeightChange(5) : handleWeightChange(1);
+          weight === 1 ? handleWeightChange(5) : handleWeightChange(1);
         }
-      }, 100)}
+      }}
       onContextMenu={(e) => {
         e.preventDefault();
-        weightNode === 1 ? handleWeightChange(5) : handleWeightChange(1);
+        weight === 1 ? handleWeightChange(5) : handleWeightChange(1);
       }}
     >
       <rect
@@ -77,16 +68,16 @@ export default function NodeComponent({
             ? "#049307"
             : isEndNode
             ? "#d509f0"
-            : weightNode > 1
-            ? "#f59e0b"
+            : weight > 1
+            ? "#f59e0be0"
             : "transparent",
           strokeWidth: 1,
-          opacity: 0.2,
+          opacity: 0.3,
         }}
       />
       {isStartNode && <image href="/start-here.svg" height={20} width={20} />}
       {isEndNode && <image href="/marker-pin.svg" height={20} width={20} />}
-      {weightNode > 1 && <image href="/weight.svg" height={20} width={20} />}
+      {weight > 1 && <image href="/weight.svg" height={20} width={20} />}
     </svg>
   );
 }
