@@ -29,9 +29,9 @@
 
 .visited {
   animation-name: visitedAnimation;
-  animation-duration: 1s;
+  animation-duration: 0.8s;
   animation-timing-function: ease-out;
-  animation-delay: 0.1s;
+  animation-delay: 0.2s;
   animation-direction: alternate;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
