@@ -21,7 +21,7 @@ export function resetVisited(graph: Graph) {
 
 export function resetWalls(graph: Graph) {
   graph.resetWalls();
-  // clearAllAnimations(styles.maze, styles.wallBg, styles.wall);
+  clearAllAnimations(styles.maze, styles.wallAnimated, styles.wall);
 }
 
 export function resetWeights(graph: Graph) {
