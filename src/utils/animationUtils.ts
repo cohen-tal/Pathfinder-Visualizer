@@ -37,7 +37,7 @@ export function animate(nodes: Set<Node>, styles: string): Promise<void>[] {
           setTimeout(() => {
             nodeElement.classList.add(styles);
             resolve();
-          }, 8 * index * 0.5);
+          }, 10 * index * 0.5);
         }
       })
   );
