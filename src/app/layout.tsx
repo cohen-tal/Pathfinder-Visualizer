@@ -6,8 +6,8 @@ import Footer from "./components/footer/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Graph Visualizer",
-  description: "Graph Algorithms Visualizer",
+  title: "Pathfinding Visualizer",
+  description: "Graph Pathfinding Algorithms Visualizer",
 };
 
 export default function RootLayout({
