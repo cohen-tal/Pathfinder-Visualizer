@@ -5,7 +5,7 @@ import GraphComponent from "../graph/GraphComponent";
 import Graph from "@/classes/graph";
 import Node from "@/classes/node";
 import styles from "@/app/components/graph/styles/page.module.css";
-import { animate, clearAnimations } from "@/utils/animationUtils";
+import { animate } from "@/utils/animationUtils";
 import {
   resetAll,
   resetVisited,
