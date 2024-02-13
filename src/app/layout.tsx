@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 import Footer from "./components/footer/Footer";
+import { NextFont } from "next/dist/compiled/@next/font";
 
-const inter = Inter({ subsets: ["latin"] });
+const roboto: NextFont = Roboto({ subsets: ["latin"], weight: ["400", "700"] });
 
 export const metadata: Metadata = {
   title: "Pathfinding Visualizer",
@@ -18,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} overflow-auto h-full text-slate-700 dark:text-slate-200 dark:bg-slate-700 bg-slate-50/80`}
+        className={`${roboto.className} overflow-auto h-full text-slate-700 dark:text-slate-200 dark:bg-slate-700 bg-slate-50/80`}
       >
         {children}
         <Footer />
