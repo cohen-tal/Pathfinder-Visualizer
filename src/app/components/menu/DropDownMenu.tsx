@@ -13,7 +13,11 @@ export const DropDownMenuContext = createContext<() => void>(() => {});
 
 const flex = {
   open: {
-    transition: { staggerChildren: 0.07, delayChildren: 0.2 },
+    x: 0,
+    transition: {
+      staggerChildren: 0.07,
+      delayChildren: 0.2,
+    },
   },
   closed: {
     transition: { staggerChildren: 0.05, staggerDirection: -1 },
@@ -31,7 +35,7 @@ export default function DropDownMenu({
   return (
     <ClickAwayListener
       onClickAway={() => {
-        open && toggleOpen();
+        open && ToggleButtonRef.current?.click();
       }}
     >
       <div
@@ -50,7 +54,9 @@ export default function DropDownMenu({
         />
         {open && (
           <motion.div
-            className="absolute top-10 mt-2 min-w-max flex flex-col p-[5px] z-50 bg-white dark:bg-slate-700 border-slate-900/10 dark:border-slate-300/10 rounded border-[1px] shadow-lg"
+            className={
+              "md:absolute md:mt-10 min-w-max flex flex-col p-[5px] z-50 bg-transparent md:bg-white md:dark:bg-slate-700 border-slate-900/10 dark:border-slate-300/10 md:rounded md:border-[1px] md:shadow-lg"
+            }
             initial="closed"
             animate={"open"}
             variants={flex}

@@ -24,8 +24,8 @@ export default function DarkModeButton() {
   }, [darkMode]);
 
   return (
-    <div className="flex flex-row pb-0.5 mr-6">
-      <div className="w-[1px] h-15 bg-slate-900/10 dark:bg-slate-300/10 mr-5" />
+    <div className="top-2 right-0 flex flex-row pb-0.5 mr-6">
+      <div className="md:w-[1px] md:h-15 bg-slate-900/10 dark:bg-slate-300/10 mr-5" />
       <div className="flex flex-row items-center justify-center border z-50 bg-white/70 dark:bg-slate-700/70 border-slate-900/10 dark:border-slate-300/10 rounded-[4px]">
         <button
           className="hover:cursor-pointer hover:bg-sky-600/50 dark:hover:text-white dark:hover:bg-sky-600/70 rounded-[2px] border-slate-900/10 dark:border-slate-300/10 h-full w-full p-2.5"

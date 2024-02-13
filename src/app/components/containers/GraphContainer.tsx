@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TopBar from "../topbar/TopBar";
 import GraphComponent from "../graph/GraphComponent";
 import Graph from "@/classes/graph";
@@ -14,57 +14,72 @@ import {
 } from "@/utils/resetGraphUtils";
 import Legend from "../legend/Legend";
 import { AlgorithmFunction, MazeFunction } from "../../../../types";
+import { useMediaQuery } from "@mui/material";
 
 export default function GraphContainer() {
+  const mobile = useMediaQuery("(max-width: 768px)");
   const [visitedNodes, setVisitedNodes] = useState<Set<Node>>();
   const [shortestPath, setShortestPath] = useState<Node[]>();
-  const [graph, setGraph] = useState<[Graph]>([new Graph(21, 64)]);
+  const [graph, setGraph] = useState<Graph>(new Graph(21, 63));
 
-  function runAlgorithm(algorithm: AlgorithmFunction) {
-    resetVisited(...graph);
-    const [visited, shortest]: [Set<Node>, Node[]] = algorithm(...graph);
-    setVisitedNodes(visited);
-    setShortestPath(shortest);
+  useEffect(() => {
+    if (!mobile) {
+      setGraph(new Graph(21, 63));
+    } else {
+      setGraph(new Graph(31, 17));
+    }
+  }, [mobile]);
+
+  async function runAlgorithm(algorithm: AlgorithmFunction) {
+    const newGraph: Graph = graph.clone();
+    resetVisited(newGraph);
+    const [visited, shortest]: [Set<Node>, Node[]] = algorithm(newGraph);
+    const promises: Promise<void>[] = animate(visited, styles.visited);
+    await Promise.all(promises).then(() => {
+      animate(shortest, styles.shortestPath);
+    });
   }
 
-  function generateMaze(mazeAlgorithm: MazeFunction) {
-    resetVisited(...graph);
-    resetWalls(...graph);
-    const walls: Set<Node> = mazeAlgorithm(...graph);
+  async function generateMaze(mazeAlgorithm: MazeFunction) {
+    const newGraph: Graph = graph.clone();
+    resetVisited(newGraph);
+    resetWalls(newGraph);
+    resetWeights(newGraph);
+    const walls: Set<Node> = mazeAlgorithm(newGraph);
     const promises: Promise<void>[] = animate(walls, styles.wallAnimated);
-    Promise.all(promises).then(() => {
-      setGraph((prev) => [...prev]);
+    await Promise.all(promises).then(() => {
+      setGraph(newGraph);
     });
   }
 
   return (
-    <>
-      <div className="flex flex-col items-center justify-center w-full gap-4">
-        <TopBar
-          onAlgorithmClick={runAlgorithm}
-          onMazeClick={generateMaze}
-          resetAll={() => {
-            resetAll(...graph);
-            setGraph((prev) => [...prev]);
-          }}
-          resetWalls={() => {
-            resetWalls(...graph);
-            setGraph((prev) => [...prev]);
-          }}
-          resetWeights={() => {
-            resetWeights(...graph);
-            setGraph((prev) => [...prev]);
-          }}
-        />
-        <Legend />
-        <div className="border-slate-900/10 dark:border-slate-300/10 rounded-[7px] border-[1px] shadow-lg">
-          <GraphComponent
-            graphNodes={graph[0].nodes}
-            visitedNodes={visitedNodes}
-            shortestPath={shortestPath}
-          ></GraphComponent>
-        </div>
-      </div>
-    </>
+    <div className="flex flex-col items-center justify-center w-full gap-4">
+      <TopBar
+        mobile={mobile}
+        onAlgorithmClick={runAlgorithm}
+        onMazeClick={generateMaze}
+        resetAll={() => {
+          const newGraph: Graph = graph.clone();
+          resetAll(newGraph);
+          setGraph(newGraph);
+        }}
+        resetWalls={() => {
+          const newGraph: Graph = graph.clone();
+          resetWalls(newGraph);
+          setGraph(newGraph);
+        }}
+        resetWeights={() => {
+          const newGraph: Graph = graph.clone();
+          resetWeights(newGraph);
+          setGraph(newGraph);
+        }}
+      />
+      <Legend />
+      <GraphComponent
+        graphNodes={graph.nodes}
+        visitedNodes={visitedNodes}
+        shortestPath={shortestPath}
+      />
+    </div>
   );
 }
