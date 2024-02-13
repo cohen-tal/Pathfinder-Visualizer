@@ -7,8 +7,8 @@ export default class Graph {
     this.initializeGrid(rows, columns);
     const centerRow = Math.floor(rows / 2);
     const centerColumn = Math.floor(columns / 2);
-    this.setStartNode(centerRow, centerColumn - 10);
-    this.setEndNode(centerRow, centerColumn + 10);
+    this.setStartNode(8, 8);
+    this.setEndNode(rows - 3, columns - 3);
   }
 
   addNode(node: Node): void {
@@ -53,7 +53,7 @@ export default class Graph {
         }
       }
     }
-    return this.nodes[10][15];
+    return this.nodes[0][0];
   }
 
   getEndNode(): Node {
@@ -64,7 +64,7 @@ export default class Graph {
         }
       }
     }
-    return this.nodes[10][34];
+    return this.nodes[this.nodes.length - 1][this.nodes[0].length - 1];
   }
 
   initializeGrid(rows: number, columns: number) {
@@ -102,6 +102,24 @@ export default class Graph {
         }
       }
     }
+  }
+
+  clone(): Graph {
+    const newGraph = new Graph(this.nodes.length, this.nodes[0].length);
+    for (let i = 0; i < this.nodes.length; i++) {
+      for (let j = 0; j < this.nodes[i].length; j++) {
+        const oldNode = this.nodes[i][j];
+        const newNode = newGraph.nodes[i][j];
+        newNode.start = oldNode.start;
+        newNode.end = oldNode.end;
+        newNode.visited = oldNode.visited;
+        newNode.parent = oldNode.parent;
+        newNode.distance = oldNode.distance;
+        newNode.wall = oldNode.wall;
+        newNode.weight = oldNode.weight;
+      }
+    }
+    return newGraph;
   }
 
   resetAll() {

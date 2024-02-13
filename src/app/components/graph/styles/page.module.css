@@ -62,6 +62,39 @@
   border-radius: 5px;
 }
 
+.maze {
+  animation-name: mazeAnimation;
+  animation-duration: 0.2s;
+  animation-timing-function: ease-out;
+  animation-direction: alternate;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+
+  &.wall {
+    animation-name: mazeAnimation;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-out;
+    animation-direction: alternate;
+    animation-delay: 0s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+  }
+
+  &.wallAnimated {
+    animation-name: wallAnimation;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-out;
+    animation-direction: alternate;
+    animation-delay: 0s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+  }
+}
+
 .wallAnimated {
   animation-name: wallAnimation;
   animation-duration: 0.2s;

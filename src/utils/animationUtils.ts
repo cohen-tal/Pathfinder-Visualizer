@@ -25,7 +25,10 @@ export function clearAnimations(
   });
 }
 
-export function animate(nodes: Set<Node>, styles: string): Promise<void>[] {
+export function animate(
+  nodes: Set<Node> | Array<Node>,
+  styles: string
+): Promise<void>[] {
   const visitedNodeElements: (HTMLElement | null)[] = Array.from(nodes).map(
     (node) => document.getElementById(`${node.position[0]}-${node.position[1]}`)
   );
