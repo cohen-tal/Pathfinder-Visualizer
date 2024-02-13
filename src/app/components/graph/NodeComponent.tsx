@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import styles from "./styles/page.module.css";
 
 export interface NodeProps {
@@ -21,9 +22,32 @@ export default function NodeComponent({
   changeWall,
   changeWeight,
 }: NodeProps) {
-  const handleWeightChange = (weight: number) => {
-    changeWeight(id, weight);
-  };
+  useEffect(() => {
+    const handleTouchMove = (e: TouchEvent) => {
+      const touch: Touch = e.touches[0];
+      const element: Element | null = document.elementFromPoint(
+        touch.clientX,
+        touch.clientY
+      );
+      if (element) {
+        const nodeId = element.getAttribute("id");
+        if (nodeId) {
+          const id: number[] = nodeId.split("-").map((node) => Number(node));
+          changeWall([id[0], id[1]], !isWall);
+        }
+      }
+    };
+
+    document.addEventListener("touchmove", handleTouchMove);
+
+    return () => {
+      document.removeEventListener("touchmove", handleTouchMove);
+    };
+  }, [isWall, changeWall]);
+
+  function handleWeightChange(newWeight: number) {
+    changeWeight(id, newWeight);
+  }
 
   return (
     <svg
