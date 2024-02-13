@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import NodeComponent from "./NodeComponent";
 import Node from "@/classes/node";
 
@@ -11,14 +11,13 @@ export interface GraphProps {
   shortestPath?: Node[];
 }
 
-export default function GraphComponent({
-  graphNodes,
-  visitedNodes,
-  shortestPath,
-}: GraphProps) {
+export default function GraphComponent({ graphNodes }: GraphProps) {
   const [nodes, setNodes] = useState<Node[][]>(graphNodes);
 
-  function handleWeightChange(id: [number, number], weight: number) {
+  const handleWeightChange = useCallback(function handleWeightChange(
+    id: [number, number],
+    weight: number
+  ) {
     setNodes((prev) => {
       const newGraphNodes: Node[][] = prev.map((row) => {
         return row.map((node) => {
@@ -30,9 +29,13 @@ export default function GraphComponent({
       });
       return newGraphNodes;
     });
-  }
+  },
+  []);
 
-  function handleWallChange(id: [number, number], wall: boolean) {
+  const handleWallChange = useCallback(function handleWallChange(
+    id: [number, number],
+    wall: boolean
+  ) {
     setNodes((prev) => {
       const newGraphNodes: Node[][] = prev.map((row) => {
         return row.map((node) => {
@@ -44,7 +47,8 @@ export default function GraphComponent({
       });
       return newGraphNodes;
     });
-  }
+  },
+  []);
 
   useEffect(() => {
     setNodes(graphNodes);
