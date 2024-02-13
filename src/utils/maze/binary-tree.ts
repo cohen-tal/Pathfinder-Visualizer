@@ -12,14 +12,7 @@ export default function binaryTreeMaze(graph: Graph): Set<Node> {
     if (!node.start && !node.end) {
       const x: number = node.position[0];
       const y: number = node.position[1];
-      if (
-        x % 2 === 0 ||
-        y % 2 === 0 ||
-        x === 0 ||
-        x === rows - 1 ||
-        y === 0 ||
-        y === cols - 1
-      ) {
+      if (x % 2 === 0 || y % 2 === 0 || x === rows - 1 || y === cols - 1) {
         node.wall = true;
         walls.add(node);
       }
