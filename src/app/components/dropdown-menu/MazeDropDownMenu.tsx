@@ -5,6 +5,7 @@ import { MazeFunction } from "../../../../types";
 import binaryTreeMaze from "@/utils/maze/binary-tree";
 import randomizedPrim from "@/utils/maze/randomized-prim";
 import randomWeights from "@/utils/maze/random-weights";
+import recursiveBackTracking from "@/utils/maze/recursive-backtracking";
 
 export default function MazeDropDownMenu({
   children,
@@ -25,10 +26,10 @@ export default function MazeDropDownMenu({
     <DropDownMenu menuName={menuName} isItemClicked={isItemClicked}>
       <MenuItem
         onClick={() => {
-          handleOnClick("Binary-Tree", binaryTreeMaze);
+          handleOnClick("Recursive Backtracking", recursiveBackTracking);
         }}
       >
-        Binary-Tree Algorithm
+        Recursive Backtracking
       </MenuItem>
       <MenuItem
         onClick={() => {
