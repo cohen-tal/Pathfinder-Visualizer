@@ -2,7 +2,6 @@ import { useState } from "react";
 import DropDownMenu, { DropDownMenuProps } from "../menu/DropDownMenu";
 import MenuItem from "../menu/MenuItem";
 import { MazeFunction } from "../../../../types";
-import binaryTreeMaze from "@/utils/maze/binary-tree";
 import randomizedPrim from "@/utils/maze/randomized-prim";
 import randomWeights from "@/utils/maze/random-weights";
 import recursiveBackTracking from "@/utils/maze/recursive-backtracking";
