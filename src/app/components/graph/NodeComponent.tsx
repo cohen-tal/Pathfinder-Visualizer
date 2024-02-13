@@ -56,6 +56,7 @@ export default function NodeComponent({
       }}
     >
       <rect
+        id={`${id[0]}-${id[1]}`}
         x="0"
         y="0"
         rx="5"

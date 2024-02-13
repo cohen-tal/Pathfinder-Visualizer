@@ -2,12 +2,6 @@
 import { useEffect, useState } from "react";
 import NodeComponent from "./NodeComponent";
 import Node from "@/classes/node";
-import styles from "./styles/page.module.css";
-import {
-  animateShortestPath,
-  animate,
-  animateSingle,
-} from "@/utils/animationUtils";
 
 export interface GraphProps {
   graphNodes: Node[][];
@@ -52,9 +46,9 @@ export default function GraphComponent({
     });
   }
 
-  // useEffect(() => {
-  //   setNodes(graphNodes);
-  // }, [graphNodes]);
+  useEffect(() => {
+    setNodes(graphNodes);
+  }, [graphNodes]);
 
   return (
     <div className="border-slate-900/10 dark:border-slate-300/10 rounded-[7px] border-[1px] shadow-lg">
