@@ -48,7 +48,6 @@ export default function recursiveBackTracking(graph: Graph): Set<Node> {
   for (let i = 1; i < 3; i++) {
     const nodeStart: Node = graph.nodes[startRow + i][startCol];
     const nodeEnd: Node = graph.nodes[endRow - i - 1][endCol];
-    console.log(endRow - i - 1, endCol);
     nodeStart.wall = false;
     nodeEnd.wall = false;
     walls.delete(nodeStart);
