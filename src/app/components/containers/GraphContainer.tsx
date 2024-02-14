@@ -18,15 +18,13 @@ import { useMediaQuery } from "@mui/material";
 
 export default function GraphContainer() {
   const mobile = useMediaQuery("(max-width: 768px)");
-  const [visitedNodes, setVisitedNodes] = useState<Set<Node>>();
-  const [shortestPath, setShortestPath] = useState<Node[]>();
   const [graph, setGraph] = useState<Graph>(new Graph(21, 63));
 
   useEffect(() => {
     if (!mobile) {
       setGraph(new Graph(21, 63));
     } else {
-      setGraph(new Graph(31, 17));
+      setGraph(new Graph(23, 17));
     }
   }, [mobile]);
 
@@ -75,11 +73,7 @@ export default function GraphContainer() {
         }}
       />
       <Legend />
-      <GraphComponent
-        graphNodes={graph.nodes}
-        visitedNodes={visitedNodes}
-        shortestPath={shortestPath}
-      />
+      <GraphComponent graphNodes={graph.nodes} />
     </div>
   );
 }

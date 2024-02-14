@@ -7,8 +7,6 @@ export interface GraphProps {
   graphNodes: Node[][];
   onWallChange?: (id: [number, number], wall: boolean) => void;
   onWeightChange?: (id: [number, number], weight: number) => void;
-  visitedNodes?: Set<Node>;
-  shortestPath?: Node[];
 }
 
 export default function GraphComponent({ graphNodes }: GraphProps) {
@@ -57,9 +55,9 @@ export default function GraphComponent({ graphNodes }: GraphProps) {
   return (
     <div className="border-slate-900/10 dark:border-slate-300/10 rounded-[7px] border-[1px] shadow-lg">
       <div
-        className={`grid grid-cols-[repeat(17,1fr)] grid-rows-[repeat(31,1fr)] z-[-1] md:grid-cols-[repeat(63,1fr)] md:grid-rows-[repeat(21,1fr)] hover:cursor-pointer`}
+        className={`grid grid-cols-[repeat(17,1fr)] grid-rows-[repeat(23,1fr)] md:grid-cols-[repeat(63,1fr)] md:grid-rows-[repeat(21,1fr)] hover:cursor-pointer`}
       >
-        {graphNodes.map((row) => {
+        {nodes.map((row) => {
           return row.map((node) => {
             return (
               <NodeComponent
