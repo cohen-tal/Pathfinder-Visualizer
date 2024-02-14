@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${roboto.className} overflow-auto h-full text-slate-700 dark:text-slate-200 dark:bg-slate-700 bg-slate-50/80`}
+        className={`${roboto.className} overflow-hidden h-screen text-slate-700 dark:text-slate-200 dark:bg-slate-700 bg-slate-50/80`}
       >
         {children}
         <Footer />
