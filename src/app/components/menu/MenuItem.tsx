@@ -37,7 +37,7 @@ export default function MenuItem({ children, onClick }: MenuItemProps) {
         handleClick();
       }}
     >
-      <div className="font-semibold text-sm hover:bg-sky-600/50 dark:hover:text-white dark:hover:bg-sky-600/70 transition ease-in-out duration-500 rounded p-1">
+      <div className="font-semibold text-sm hover:bg-sky-600/50 dark:hover:text-white dark:hover:bg-sky-600/70 rounded p-1">
         {children}
       </div>
     </motion.button>
