@@ -28,14 +28,7 @@
 }
 
 .visited {
-  animation-name: visitedAnimation;
-  animation-duration: 0.8s;
-  animation-timing-function: ease-out;
-  animation-delay: 0.1s;
-  animation-direction: alternate;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  animation-play-state: running;
+  animation: visitedAnimation 0.5s ease-out 0.1s alternate forwards;
 
   &.wall {
     background-color: transparent;
@@ -47,14 +40,7 @@
 }
 
 .shortestPath {
-  animation-name: shortestPathAnimation;
-  animation-duration: 1s;
-  animation-timing-function: ease-out;
-  animation-delay: 0.2s;
-  animation-direction: alternate;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  animation-play-state: running;
+  animation: shortestPathAnimation 1s ease-out alternate forwards;
 }
 
 .wall {
@@ -109,14 +95,6 @@
 .weight {
   background-color: rgba(245, 158, 11, 0.88);
   border-radius: 5px;
-  /* animation-name: weightAnimation;
-  animation-duration: 0.1s;
-  animation-timing-function: ease-out;
-  animation-delay: 0s;
-  animation-direction: alternate;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  animation-play-state: running; */
 
   &.visited {
     animation-name: visitedAnimation;
@@ -133,27 +111,11 @@
     animation-name: shortestPathAnimation;
     animation-duration: 1s;
     animation-timing-function: ease-out;
-    animation-delay: 0.2s;
+    animation-delay: 0.5s;
     animation-direction: alternate;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
     animation-play-state: running;
-  }
-}
-
-@media (max-width: 1500px) {
-  .grid {
-    grid-template-rows: repeat(21, 1fr);
-    grid-template-columns: repeat(53, 1fr);
-    gap: 0px;
-  }
-}
-
-@media (max-width: 1350px) {
-  .grid {
-    grid-template-rows: repeat(14, 1fr);
-    grid-template-columns: repeat(45, 1fr);
-    gap: 0px;
   }
 }
 
@@ -183,12 +145,8 @@
 @keyframes visitedAnimation {
   0% {
     transform: scale(0.3);
-    background-color: rgba(0, 0, 66, 0.75);
-    border-radius: 100%;
-  }
-
-  50% {
     background-color: rgba(17, 104, 217, 0.75);
+    border-radius: 100%;
   }
 
   75% {
