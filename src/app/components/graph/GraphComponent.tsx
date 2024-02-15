@@ -55,7 +55,7 @@ export default function GraphComponent({ graphNodes }: GraphProps) {
   return (
     <div className="border-slate-900/10 dark:border-slate-300/10 rounded-[7px] border-[1px] shadow-lg">
       <div
-        className={`grid grid-cols-[repeat(17,1fr)] grid-rows-[repeat(23,1fr)] md:grid-cols-[repeat(63,1fr)] md:grid-rows-[repeat(21,1fr)] hover:cursor-pointer`}
+        className={`grid grid-cols-[repeat(17,1fr)] grid-rows-[repeat(19,1fr)] md:grid-cols-[repeat(63,1fr)] md:grid-rows-[repeat(21,1fr)] hover:cursor-pointer`}
       >
         {nodes.map((row) => {
           return row.map((node) => {

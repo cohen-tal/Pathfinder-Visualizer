@@ -24,7 +24,7 @@ export default function GraphContainer() {
     if (!mobile) {
       setGraph(new Graph(21, 63));
     } else {
-      setGraph(new Graph(23, 17));
+      setGraph(new Graph(19, 17));
     }
   }, [mobile]);
 
