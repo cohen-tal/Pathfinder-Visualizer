@@ -8,8 +8,7 @@ import { AlgorithmFunction, MazeFunction } from "../../../../types";
 import RunAlgorithmButton from "../buttons/RunAlgorithmButton";
 import BurgerMenu from "../menu/BurgerMenu";
 import Logo from "../Logo";
-import LinearProgress from "@mui/material/LinearProgress/LinearProgress";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, LinearProgress } from "@mui/material";
 
 export interface TopBarProps {
   mobile?: boolean;
