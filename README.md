@@ -1,7 +1,7 @@
 # Pathfinder Visualizer 
 
 ## Introduction
-After seeing [Clement's](https://github.com/clementmihailescu/Pathfinding-Visualizer) pathfiner app I knew I wanted implement one myself but using modern frameworks and technologies.
+After seeing [Clement's](https://github.com/clementmihailescu/Pathfinding-Visualizer) pathfiner app I knew I wanted to implement one myself but using modern frameworks, technologies and design.
 
 Pathfinder Visualizer is an application that aims to help users understand how various pathfinding algorithms work by visualizing them in real time.
 
@@ -27,6 +27,7 @@ Pathfinder Visualizer is an application that aims to help users understand how v
 - React
 - Next.js
 - TailWindCSS
+- Framer Motion
 
 
 ## Getting Started
