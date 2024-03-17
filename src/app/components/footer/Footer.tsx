@@ -3,7 +3,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 export default function Footer() {
   return (
-    <div className="relative bottom-0 mt-3 w-full max-h-8 flex flex-row items-center justify-center gap-2  border-slate-900/10 dark:border-slate-300/10 dark:bg-slate-700 border-t">
+    <div className="relative bottom-0 mt-6 md:mt-3 w-full max-h-8 flex flex-row items-center justify-center gap-8  md:gap-2  border-slate-900/10 dark:border-slate-300/10 dark:bg-slate-700 md:border-t">
       <a className="pl-2" href="https://github.com/cohen-tal" target="_blank">
         <GitHubIcon sx={{ fontSize: "2rem" }} />
       </a>
