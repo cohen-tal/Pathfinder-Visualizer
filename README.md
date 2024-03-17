@@ -1,4 +1,5 @@
 # Pathfinder Visualizer 
+![dijkstra](https://github.com/cohen-tal/Pathfinder-Visualizer/assets/157098453/40fe769f-3c3e-4609-bcc1-946d1e80d142)
 
 ## Introduction
 After seeing [Clement's](https://github.com/clementmihailescu/Pathfinding-Visualizer) pathfiner app I knew I wanted to implement one myself but using modern frameworks, technologies and design.
