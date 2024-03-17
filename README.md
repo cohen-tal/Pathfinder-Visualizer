@@ -7,7 +7,7 @@ Pathfinder Visualizer is an application that aims to help users understand how v
 
 ## Overview
 - Interactive grid for creating obstacles and defining weighted edges connecting the nodes.
-- Real-time animatinos visualizung the algorithms.
+- Real-time animations.
 - Responsive design, compatible with various screen sizes.
 
 ## Available Algorithms
